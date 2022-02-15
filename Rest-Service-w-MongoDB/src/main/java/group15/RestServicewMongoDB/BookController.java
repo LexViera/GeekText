@@ -22,11 +22,17 @@ public class BookController {
 
     @PostMapping("/books")
     public void addBooks(@RequestBody List<Book> books){
-    bookRepo.saveAll(books);
+        bookRepo.saveAll(books);
+    }
+
+    @PostMapping("/books/singlebook")
+    public void addSingleBook(@RequestBody Book book){
+        bookRepo.save(book);
     }
 
     @GetMapping("/books/hi")
     public String print(){
+        ++counter;
         return "Hello World Bitches "+counter;
     }
 
