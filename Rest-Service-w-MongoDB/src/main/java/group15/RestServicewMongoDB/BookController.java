@@ -18,7 +18,7 @@ public class BookController {
     @Autowired
     private BookRepo bookRepo;
 
-    private int counter = 0;
+    private int countr = 100;
 
     @PostMapping("/books")
     public void addBooks(@RequestBody List<Book> books){
@@ -32,8 +32,8 @@ public class BookController {
 
     @GetMapping("/books/hi")
     public String print(){
-        ++counter;
-        return "Hello World Bitches "+counter;
+        ++countr;
+        return "Hello World Bitches "+countr;
     }
 
     @GetMapping("/books")
