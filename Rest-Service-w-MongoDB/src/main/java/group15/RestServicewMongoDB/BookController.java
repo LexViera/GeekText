@@ -25,7 +25,7 @@ public class BookController {
         bookRepo.saveAll(books);
     }
 
-    @PostMapping("/books/singlebook")
+    @PostMapping("/books/addbook")
     public void addSingleBook(@RequestBody Book book){
         bookRepo.save(book);
     }
