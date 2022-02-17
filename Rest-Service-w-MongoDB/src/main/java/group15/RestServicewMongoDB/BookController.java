@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
 
     @Autowired
-    private BookRepo bookRepo;
+    private BookRepo bookCollection;
 
     private int countr = 100;
 
     @PostMapping("/books")
     public void addBooks(@RequestBody List<Book> books){
-        bookRepo.saveAll(books);
+        bookCollection.saveAll(books);
     }
 
     @PostMapping("/books/addbook")
     public void addSingleBook(@RequestBody Book book){
-        bookRepo.save(book);
+        bookCollection.save(book);
     }
 
     @GetMapping("/books/hi")
@@ -38,12 +38,12 @@ public class BookController {
 
     @GetMapping("/books")
     public List<Book> getBooks(){
-        return bookRepo.findAll();
+        return bookCollection.findAll();
     }
 
     @GetMapping("/books/{bookId}")
     public Book findBook(@PathVariable final String bookId){
-        return bookRepo.findById(bookId).orElseGet(Book::new);
+        return bookCollection.findById(bookId).orElseGet(Book::new);
         
         
     }
