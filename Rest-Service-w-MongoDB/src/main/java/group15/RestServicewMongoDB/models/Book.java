@@ -8,9 +8,8 @@ public class Book {
 
     @Id
     private String isbn;
-
+    
     private String title;
-
     private String author;
 
     public Book(){}
