@@ -1,4 +1,4 @@
-package group15.RestServicewMongoDB;
+package group15.RestServicewMongoDB.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
