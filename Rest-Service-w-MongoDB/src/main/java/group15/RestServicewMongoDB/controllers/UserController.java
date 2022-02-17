@@ -23,6 +23,8 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public void addSingleBook(@RequestBody User userProfile){
+        
+
         userCollection.save(userProfile);
     }
     
