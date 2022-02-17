@@ -8,7 +8,13 @@ public class User {
     
     @Id
     private int id;
-    
+
+    private String userName;
+
+    private String password;
+
+    private String userRole;
+
     public int getId() {
         return id;
     }
@@ -33,7 +39,13 @@ public class User {
         this.password = password;
     }
 
-    private String userName;
+    public String getUserRole() {
+        return userRole;
+    }
 
-    private String password;
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
+    
 }

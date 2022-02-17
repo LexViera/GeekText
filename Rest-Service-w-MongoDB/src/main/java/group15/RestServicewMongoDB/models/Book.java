@@ -8,12 +8,24 @@ public class Book {
 
     @Id
     private String isbn;
-
     private String title;
-
-    private String author;
+    private Author author;
+    private String genre;
+    private String publisher;
+    private String yearPublished;
+    private int copiesSold;
 
     public Book(){}
+
+    public Book(String isbn, String title, Author author,String genre, String publisher, String yearPublished, int copiesSold){
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.publisher = publisher;
+        this.yearPublished = yearPublished;
+        this.copiesSold = copiesSold;
+    }
 
     public String getIsbn() {
         return isbn;
@@ -31,13 +43,47 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
-}
+    public String getGenre() {
+        return genre;
+    }
 
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getYearPublished() {
+        return yearPublished;
+    }
+
+    public void setYearPublished(String yearPublished) {
+        this.yearPublished = yearPublished;
+    }
+
+    public int getCopiesSold() {
+        return copiesSold;
+    }
+
+    public void setCopiesSold(int copiesSold) {
+        this.copiesSold = copiesSold;
+    }
+
+    
+    
+}
+ 
