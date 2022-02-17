@@ -1,4 +1,4 @@
-package group15.RestServicewMongoDB;
+package group15.RestServicewMongoDB.models;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
