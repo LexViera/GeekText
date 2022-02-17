@@ -4,7 +4,7 @@ Web service group project for CEN4010
 # Running the backend
 ***Running the REST service (backend) requires an installed version of the JDK and Maven.***
 
-Enter the working directory of the backend `./RestServicewMongoDB`
+Enter the working directory of the backend `./Rest-Service-w-MongoDB`
 
 1. For Bash/Zsh (MacOS, Linux, Ubuntu) running `./mvnw spring-boot:run` will spool the app 
 2. On Windows running `mvn spring-boot:run` should be the equivalent
