@@ -25,7 +25,6 @@ public class UserController {
     public void addSingleBook(@RequestBody User userCredentials){
         String username = userCredentials.getUsername();
         boolean isExistingUser = userCollection.existsById(username);
-        System.out.println(isExistingUser);
         if (!isExistingUser){
             userCollection.save(userCredentials);
         }
