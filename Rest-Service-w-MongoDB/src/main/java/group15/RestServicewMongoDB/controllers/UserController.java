@@ -22,7 +22,7 @@ public class UserController {
     private UserRepo userCollection;
     
 
-    @PostMapping("/adduser")
+    @PostMapping("/add-user")
     public void addSingleBook(@RequestBody User userProfile){
         userCollection.save(userProfile);
     }
