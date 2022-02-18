@@ -3,6 +3,7 @@ package group15.RestServicewMongoDB.controllers;
 import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class UserController {
     final String missingUser = "Username provided does not exist";
     final String passwordMismatch = "Invalid login credentials provided";
     final String successfullySignedIn = "Successfully signed in";
+    final String notSignedIn = "You are not signed in";
+
+    final String sessionIdentifierKey = "session-id";
+    private boolean add;
 
     private boolean isMissingUserOrPassword(String username, String password){
         return (username == null || password == null) ? true : false;
@@ -45,6 +50,7 @@ public class UserController {
         String username = userCredentials.getUsername();
         boolean isExistingUser = userCollection.existsById(username); 
         if (!isExistingUser){
+            userCredentials.setCreditCards(new ArrayList<CreditCard>());
             userCollection.save(userCredentials);
             return new Message(createdAccount, "Success");
         }else{
@@ -71,13 +77,37 @@ public class UserController {
         }
         Session newSession = new Session(givenUsername);
         sessionCollection.save(newSession);
-        Cookie cookie = new Cookie("session-id", newSession.getSessionIdentifier());
+        Cookie cookie = new Cookie(sessionIdentifierKey, newSession.getSessionIdentifier());
         response.addCookie(cookie);
         return new Message(successfullySignedIn, "Success");
     }
 
     @PostMapping("/add-credit-card")
-    public Message loginUser(@RequestBody CreditCard creditCardCredentials){
+    public Message addCreditCard(@RequestBody CreditCard creditCardCredentials, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        String sessionIdentifier = null;
+        for (Cookie cookie : cookies){
+            if (cookie.getName().equals(sessionIdentifierKey)){
+                sessionIdentifier = cookie.getValue();
+            }
+        }
+        // can be seperated into a check session method
+        if (sessionIdentifier == null) return new Message(notSignedIn, "Error");
+        Session existingSession = sessionCollection.findById(sessionIdentifier).orElseGet(Session::new);
+        if (existingSession.getSessionIdentifier() == null){
+            return new Message(notSignedIn, "Error");
+        }
+        User user = userCollection.findById(existingSession.getUsername()).orElseGet(User::new);
+
+        ArrayList<CreditCard> userCreditCards = user.getCreditCards();
+
+        userCreditCards.add(creditCardCredentials);
+        user.setCreditCards(userCreditCards);
+        userCollection.save(user);
+
+        for (CreditCard card : user.getCreditCards()){
+            System.out.println(card.getFirstName());
+        }
         return new Message("", "");
     }
 }

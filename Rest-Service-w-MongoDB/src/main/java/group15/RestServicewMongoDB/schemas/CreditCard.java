@@ -1,9 +1,9 @@
 package group15.RestServicewMongoDB.schemas;
 
-public class NewCreditCard {
+public class CreditCard {
     private final String firstName, lastName, creditCardNumber;
 
-    public NewCreditCard(String firstName, String lastName, String creditCardNumber){
+    public CreditCard(String firstName, String lastName, String creditCardNumber){
         this.firstName = firstName;
         this.lastName = lastName;
         this.creditCardNumber = creditCardNumber;
