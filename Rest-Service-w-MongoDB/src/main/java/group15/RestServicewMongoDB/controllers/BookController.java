@@ -47,17 +47,5 @@ public class BookController {
     public List<Book> getBooks(){
         return bookCollection.findAll();
     }
-
-    //Find book by ISBN
-    @GetMapping("/books/{bookId}")
-    public Book findBook(@PathVariable final String bookId){
-        return bookCollection.findById(bookId).orElseGet(Book::new);    
-    }
-
-    //Finds all books associated with an author
-    @GetMapping("/books/{author}")
-    public List<Book> findBooksByAuthor(Author author){
-        return bookCollection.findBooksByAuthor(author);
-    }
     
 }
