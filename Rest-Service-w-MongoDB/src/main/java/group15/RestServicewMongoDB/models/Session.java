@@ -14,11 +14,17 @@ public class Session {
     private long timeStamp;
     private String username; 
 
+    public Session(){}
+
     public Session(String username){
         UUID uuid = UUID.randomUUID();
         this.timeStamp = new Date().getTime();
         this.username = username;
         this.sessionIdentifier = uuid.toString();
+    }
+
+    public void setUsername(String username){
+        this.username = username;
     }
     
     public long getTimeStamp(){

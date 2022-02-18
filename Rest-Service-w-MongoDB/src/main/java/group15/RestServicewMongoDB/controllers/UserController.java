@@ -29,6 +29,7 @@ public class UserController {
     final String missingUser = "Username provided does not exist";
     final String passwordMismatch = "Invalid login credentials provided";
     final String successfullySignedIn = "Successfully signed in";
+    private String sessionIdentifier;
 
     private boolean isMissingUserOrPassword(String username, String password){
         return (username == null || password == null) ? true : false;
@@ -62,11 +63,15 @@ public class UserController {
         if (matchingUserPassword == null) return new Message(missingUser, "Error");
         if (!matchingUserPassword.equals(givenPassword)) return new Message(passwordMismatch, "Error"); 
 
+        Session existingSession = sessionCollection.findByUsername(givenUsername);
+        if (existingSession != null){
+            sessionIdentifier = existingSession.getSessionIdentifier();
+            sessionCollection.deleteById(sessionIdentifier);
+        }
         Session newSession = new Session(givenUsername);
         sessionCollection.save(newSession);
         Cookie cookie = new Cookie("session-id", newSession.getSessionIdentifier());
         response.addCookie(cookie);
-
         return new Message(successfullySignedIn, "Success");
     }
 }
