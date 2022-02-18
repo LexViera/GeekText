@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import group15.RestServicewMongoDB.collections.SessionRepo;
 import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.User;
+import group15.RestServicewMongoDB.models.Session;
 import group15.RestServicewMongoDB.schemas.Message;
 import group15.RestServicewMongoDB.schemas.Login;
 
@@ -15,6 +17,8 @@ public class UserController {
 
     @Autowired
     private UserRepo userCollection;
+    @Autowired
+    private SessionRepo sessionCollection;
 
     final String failedToProvideCredentials =  "Failed to provide username and password credentials.";
     final String takenUser = "Entered username is taken.";
@@ -53,7 +57,8 @@ public class UserController {
         User matchingUser = userCollection.findById(givenUsername).orElseGet(User::new);
         final String matchingUserPassword = matchingUser.getPassword();
         if (matchingUserPassword == null) return new Message(missingUser, "Error");
-        if (!matchingUserPassword.equals(givenPassword)) return new Message(passwordMismatch, "Error");
+        if (!matchingUserPassword.equals(givenPassword)) return new Message(passwordMismatch, "Error"); 
+        sessionCollection.save(new Session(givenUsername));
         return new Message(successfullySignedIn, "Success");
     }
 }

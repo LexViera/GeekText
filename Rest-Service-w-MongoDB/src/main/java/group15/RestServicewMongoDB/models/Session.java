@@ -5,10 +5,12 @@ import java.util.Date;
 
 @Document
 public class Session {
-    private long timeStamp; 
+    private long timeStamp;
+    private String username; 
 
-    public Session(){
+    public Session(String username){
         this.timeStamp = new Date().getTime();
+        this.username = username;
     }
     
     public long getTimeStamp(){
