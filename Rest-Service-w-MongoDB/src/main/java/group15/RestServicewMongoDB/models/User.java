@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class User {
-    
+
     @Id
     private int id;
 
@@ -15,23 +15,20 @@ public class User {
 
     private String userRole;
 
+    public User(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+  
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getUsername(){
+        return username;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
+    public String getPassword(){
         return password;
     }
 
@@ -48,4 +45,5 @@ public class User {
     }
 
     
+
 }
