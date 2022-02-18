@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import group15.RestServicewMongoDB.models.Message;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.models.UserRepo;
 
@@ -22,11 +23,16 @@ public class UserController {
     private UserRepo userCollection;
 
     @PostMapping("/sign-up")
-    public void addSingleBook(@RequestBody User userCredentials){
+    public Message addSingleBook(@RequestBody User userCredentials){
         String username = userCredentials.getUsername();
         boolean isExistingUser = userCollection.existsById(username);
         if (!isExistingUser){
             userCollection.save(userCredentials);
+            String message = "Succesfully created account";
+            return new Message(message, "Success");
+        }else{
+            String message = "Entered username is taken.";
+            return new Message(message, "Error");
         }
     }
     
