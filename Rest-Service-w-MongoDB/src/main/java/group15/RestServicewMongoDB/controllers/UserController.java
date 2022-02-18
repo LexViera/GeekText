@@ -22,21 +22,22 @@ public class UserController {
     @Autowired
     private UserRepo userCollection;
 
+    final String failedToProvideCredentials =  "Failed to provide username and password credentials on signup.";
+    final String takenUser = "Entered username is taken.";
+    final String createdAccount = "Succesfully created account";
+
     @PostMapping("/sign-up")
     public Message addSingleBook(@RequestBody User userCredentials){
         if (userCredentials.getUsername() == null || userCredentials.getPassword() == null){
-            String message = "Failed to provide username and password credentials on signup.";
-            return new Message(message, "Error");
+            return new Message(failedToProvideCredentials, "Error");
         }
         String username = userCredentials.getUsername();
         boolean isExistingUser = userCollection.existsById(username);
         if (!isExistingUser){
             userCollection.save(userCredentials);
-            String message = "Succesfully created account";
-            return new Message(message, "Success");
+            return new Message(createdAccount, "Success");
         }else{
-            String message = "Entered username is taken.";
-            return new Message(message, "Error");
+            return new Message(takenUser, "Error");
         }
     }
 }
