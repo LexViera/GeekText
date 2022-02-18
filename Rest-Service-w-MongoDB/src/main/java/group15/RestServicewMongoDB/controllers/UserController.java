@@ -19,6 +19,9 @@ public class UserController {
     final String failedToProvideCredentials =  "Failed to provide username and password credentials.";
     final String takenUser = "Entered username is taken.";
     final String createdAccount = "Succesfully created account";
+    final String missingUser = "Username provided does not exist";
+    final String passwordMismatch = "Invalid login credentials provided";
+    final String successfullySignedIn = "Successfully signed in";
 
     private boolean isMissingUserOrPassword(String username, String password){
         return (username == null || password == null) ? true : false;
@@ -45,7 +48,9 @@ public class UserController {
             return new Message(failedToProvideCredentials, "Error");
         } 
         User matchingUser = userCollection.findById(loginCredentials.getUsername()).orElseGet(User::new);
-        if (matchingUser == null) System.out.println("No matching user");
-        return new Message("", "");
+        final String matchingUserPassword = matchingUser.getPassword();
+        if (matchingUserPassword == null) return new Message(missingUser, "Error");
+        if (matchingUserPassword != loginCredentials.getPassword()) return new Message(passwordMismatch, "Error");
+        return new Message(successfullySignedIn, "Success");
     }
 }
