@@ -18,7 +18,7 @@ public class UserController {
 
     @Autowired
     private UserRepo userCollection;
-
+    
     final String failedToProvideCredentials =  "Failed to provide username and password credentials on signup.";
     final String takenUser = "Entered username is taken.";
     final String createdAccount = "Succesfully created account";
