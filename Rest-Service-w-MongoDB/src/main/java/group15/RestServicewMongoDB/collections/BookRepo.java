@@ -3,11 +3,6 @@ package group15.RestServicewMongoDB.collections;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-<<<<<<< HEAD
-import group15.RestServicewMongoDB.models.Book;
-
-public interface BookRepo extends MongoRepository<Book, String> {}
-=======
 
 import group15.RestServicewMongoDB.models.Author;
 import group15.RestServicewMongoDB.models.Book;
@@ -27,4 +22,3 @@ public interface BookRepo extends MongoRepository<Book, String> {
 
     //Find Book subset of size X from index 0 to X
 }
->>>>>>> main
