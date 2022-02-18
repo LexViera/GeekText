@@ -6,14 +6,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class User {
 
+    
+    
     @Id
-    private int id;
-
-    private String userName;
-
+    private String username;
     private String password;
-
     private String userRole;
+    private int id;
 
     public User(String username, String password){
         this.username = username;

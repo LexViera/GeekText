@@ -29,7 +29,7 @@ public class UserController {
             return new Message(failedToProvideCredentials, "Error");
         }
         String username = userCredentials.getUsername();
-        boolean isExistingUser = userCollection.existsById(username);
+        boolean isExistingUser = userCollection.existsById(username); 
         if (!isExistingUser){
             userCollection.save(userCredentials);
             return new Message(createdAccount, "Success");
