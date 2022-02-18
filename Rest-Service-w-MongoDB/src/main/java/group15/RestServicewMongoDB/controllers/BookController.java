@@ -21,29 +21,31 @@ public class BookController {
     @Autowired
     private BookRepo bookCollection;
 
-    private int countr = 100;
+    //Variable and method are here to test if web server is responding
+    private int countr = 1;
+    @GetMapping("/test")
+    public String print(){
+        ++countr;
+        return "Hello World -> endpoint GET call counter: "+countr;
+    }
 
     @PostMapping("/books")
     public void addBooks(@RequestBody List<Book> books){
         bookCollection.saveAll(books);
     }
 
-    @PostMapping("/books/addbook")
-    public void addSingleBook(@RequestBody Book book){
+    @PostMapping("/books/add")
+    public void addBook(@RequestBody Book book){
         bookCollection.save(book);
     }
 
-    @GetMapping("/books/hi")
-    public String print(){
-        ++countr;
-        return "Hello World Bitches "+countr;
-    }
-
+    
     @GetMapping("/books")
     public List<Book> getBooks(){
         return bookCollection.findAll();
     }
 
+    //Find books by ISBN
     @GetMapping("/books/{bookId}")
     public Book findBook(@PathVariable final String bookId){
         return bookCollection.findById(bookId).orElseGet(Book::new);    
