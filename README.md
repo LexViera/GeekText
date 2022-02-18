@@ -11,4 +11,4 @@ Enter the working directory of the backend `./Rest-Service-w-MongoDB`
 
 1. For Bash/Zsh (MacOS, Linux, Ubuntu) running `./mvnw spring-boot:run` will spool the app
 2. On Windows running `mvn spring-boot:run` should be the equivalent
-3. If the backend is running correctly and compiled without errors the page `http://localhost:8888/books/hi` should display some text on the browser. The id property should also increment on page reload
+3. If the backend is running correctly and compiled without errors the page `http://localhost:8888/test` should display some text on the browser. The # counter should also increment on page reload
