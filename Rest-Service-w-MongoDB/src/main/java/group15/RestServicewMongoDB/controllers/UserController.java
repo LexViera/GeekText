@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.schemas.Message;
+import group15.RestServicewMongoDB.schemas.Login;
 
-/**
- * BookController
- */
 @RestController
 public class UserController {
 
@@ -38,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Message loginUser(@RequestBody User userCredentials){
+    public Message loginUser(@RequestBody Login loginCredentials){
         return new Message("", "");
     }
 }
