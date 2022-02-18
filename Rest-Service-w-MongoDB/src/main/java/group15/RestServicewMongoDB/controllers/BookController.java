@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import group15.RestServicewMongoDB.collections.BookRepo;
+import group15.RestServicewMongoDB.models.Author;
 import group15.RestServicewMongoDB.models.Book;
 
 /**
@@ -21,32 +22,30 @@ public class BookController {
     @Autowired
     private BookRepo bookCollection;
 
-    private int countr = 100;
+    //Variable and method are here to test if web server is responding
+    private int countr = 1;
+    @GetMapping("/test")
+    public String print(){
+        ++countr;
+        return "Hello World -> endpoint GET call counter: "+countr;
+    }
 
+    //Accepts a POST call to populate the Book collection with an array of books
     @PostMapping("/books")
     public void addBooks(@RequestBody List<Book> books){
         bookCollection.saveAll(books);
     }
 
-    @PostMapping("/books/addbook")
-    public void addSingleBook(@RequestBody Book book){
+    //Accepts a POST call to add a single book object/JSON
+    @PostMapping("/books/add")
+    public void addBook(@RequestBody Book book){
         bookCollection.save(book);
     }
-
-    @GetMapping("/books/hi")
-    public String print(){
-        ++countr;
-        return "Hello World Bitches "+countr;
-    }
-
+    
+    //Finds all books in the collection
     @GetMapping("/books")
     public List<Book> getBooks(){
         return bookCollection.findAll();
-    }
-
-    @GetMapping("/books/{bookId}")
-    public Book findBook(@PathVariable final String bookId){
-        return bookCollection.findById(bookId).orElseGet(Book::new);    
     }
     
 }
