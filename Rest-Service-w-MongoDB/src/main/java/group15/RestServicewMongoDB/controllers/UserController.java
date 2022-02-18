@@ -34,9 +34,9 @@ public class UserController {
     final String passwordMismatch = "Invalid login credentials provided";
     final String successfullySignedIn = "Successfully signed in";
     final String notSignedIn = "You are not signed in";
+    final String addedCreditCard = "Succesfully added credit card";
 
     final String sessionIdentifierKey = "session-id";
-    private boolean add;
 
     private boolean isMissingUserOrPassword(String username, String password){
         return (username == null || password == null) ? true : false;
@@ -105,9 +105,6 @@ public class UserController {
         user.setCreditCards(userCreditCards);
         userCollection.save(user);
 
-        for (CreditCard card : user.getCreditCards()){
-            System.out.println(card.getFirstName());
-        }
-        return new Message("", "");
+        return new Message(addedCreditCard, "Success");
     }
 }
