@@ -24,6 +24,10 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public Message addSingleBook(@RequestBody User userCredentials){
+        if (userCredentials.getUsername() == null || userCredentials.getPassword() == null){
+            String message = "Failed to provide username and password credentials on signup.";
+            return new Message(message, "Error");
+        }
         String username = userCredentials.getUsername();
         boolean isExistingUser = userCollection.existsById(username);
         if (!isExistingUser){
@@ -35,5 +39,4 @@ public class UserController {
             return new Message(message, "Error");
         }
     }
-    
 }
