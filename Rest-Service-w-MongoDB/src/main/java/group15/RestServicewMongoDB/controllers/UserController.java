@@ -15,6 +15,7 @@ import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.models.Session;
 import group15.RestServicewMongoDB.schemas.Message;
+import group15.RestServicewMongoDB.schemas.CreditCard;
 import group15.RestServicewMongoDB.schemas.Login;
 
 @RestController
@@ -73,5 +74,10 @@ public class UserController {
         Cookie cookie = new Cookie("session-id", newSession.getSessionIdentifier());
         response.addCookie(cookie);
         return new Message(successfullySignedIn, "Success");
+    }
+
+    @PostMapping("/add-credit-card")
+    public Message loginUser(@RequestBody CreditCard creditCardCredentials){
+        return new Message("", "");
     }
 }
