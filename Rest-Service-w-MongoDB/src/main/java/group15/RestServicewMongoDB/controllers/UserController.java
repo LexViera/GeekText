@@ -31,7 +31,6 @@ public class UserController {
     final String missingUser = "Username provided does not exist";
     final String passwordMismatch = "Invalid login credentials provided";
     final String successfullySignedIn = "Successfully signed in";
-    private String sessionIdentifier;
 
     private boolean isMissingUserOrPassword(String username, String password){
         return (username == null || password == null) ? true : false;
