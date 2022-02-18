@@ -1,6 +1,5 @@
 package group15.RestServicewMongoDB.controllers;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,21 +62,16 @@ public class BookBrowser {
         //Find Book subset of size X from index 0 to X
         @GetMapping("/books/get-subset?={index}")
         public List<Book> getBookSubset(@PathVariable int index) throws IndexOutOfBoundsException{
-
-            List<Book> books = bookCollection.findAll();
-            
+            List<Book> books = bookCollection.findAll();  
             try{
                 if(bookCollection.count() < index){
                     throw new IndexOutOfBoundsException();
                 }
-                else{
-                    return books.subList(0, index);
-                }
+                else{ return books.subList(0, index); }
             }
             catch(Exception e){
-                //do something with - Requested Subset is larger than Book Collection
+                //Do something useful
             }
             return null;
         }
-
 }
