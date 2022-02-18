@@ -1,5 +1,6 @@
 package group15.RestServicewMongoDB.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +40,13 @@ public class BookBrowser {
 
         }
         //Find books by Top Sellers(Top 10)
-        //@GetMapping("/books/top-sellers")
-        //public List<Book> findBooksByTopSeller(){
-            //List<Book> topSellers = new LinkedList<>();
-            //topSellers.
-
+        @GetMapping("/books/top-sellers")
+        public List<Book> findBooksByTopSeller(){
+            List<Book> topSellers = new ArrayList<>();
+            topSellers.sort((o1, o2) -> o1.getCopiesSold().compareTo(o2.getCopiesSold()));
             //Return top 10 sellers
-            //return topSellers;
-        //}
+            return topSellers.subList(0, 9);
+        }
 
         //Find books by specified rating (1-5)
         public List<Book> findBooksByRating(@PathVariable String rating){
@@ -67,7 +67,7 @@ public class BookBrowser {
                 if(bookCollection.count() < index){
                     throw new IndexOutOfBoundsException();
                 }
-                else{ return books.subList(0, index); }
+                else{ return books.subList(0, index-1); }
             }
             catch(Exception e){
                 //Do something useful

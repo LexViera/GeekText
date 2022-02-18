@@ -12,9 +12,9 @@
 	<artifactId>Rest-Service-w-MongoDB</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Rest-Service-w-MongoDB</name>
-	<description>Test Project</description>
+	<description>GeekText</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

@@ -13,11 +13,11 @@ public class Book {
     private String genre;
     private String publisher;
     private String yearPublished;
-    private int copiesSold;
+    private String copiesSold;
 
     public Book(){}
 
-    public Book(String isbn, String title, Author author,String genre, String yearPublished, int copiesSold){
+    public Book(String isbn, String title, Author author,String genre, String yearPublished, String copiesSold){
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -75,11 +75,11 @@ public class Book {
         this.yearPublished = yearPublished;
     }
 
-    public int getCopiesSold() {
+    public String getCopiesSold() {
         return copiesSold;
     }
 
-    public void setCopiesSold(int copiesSold) {
+    public void setCopiesSold (String copiesSold) {
         this.copiesSold = copiesSold;
     }
 }
