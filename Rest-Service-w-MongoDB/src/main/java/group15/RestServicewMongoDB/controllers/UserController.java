@@ -16,15 +16,19 @@ public class UserController {
     @Autowired
     private UserRepo userCollection;
 
-    final String failedToProvideCredentials =  "Failed to provide username and password credentials on signup.";
+    final String failedToProvideCredentials =  "Failed to provide username and password credentials.";
     final String takenUser = "Entered username is taken.";
     final String createdAccount = "Succesfully created account";
 
+    private boolean isMissingUserOrPassword(String username, String password){
+        return (username == null || password == null) ? true : false;
+    }
+
     @PostMapping("/sign-up")
     public Message signupUser(@RequestBody User userCredentials){
-        if (userCredentials.getUsername() == null || userCredentials.getPassword() == null){
+        if (isMissingUserOrPassword(userCredentials.getUsername(), userCredentials.getPassword())){
             return new Message(failedToProvideCredentials, "Error");
-        }
+        } 
         String username = userCredentials.getUsername();
         boolean isExistingUser = userCollection.existsById(username);
         if (!isExistingUser){
@@ -36,7 +40,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Message loginUser(@RequestBody Login loginCredentials){
+    public Message loginUser(@RequestBody Login loginCredentials){    
+        if (isMissingUserOrPassword(loginCredentials.getUsername(), loginCredentials.getPassword())){
+            return new Message(failedToProvideCredentials, "Error");
+        } 
+        System.out.println(loginCredentials.getUsername());
+        System.out.println(loginCredentials.getPassword());
         return new Message("", "");
     }
 }
