@@ -22,19 +22,19 @@ public class BookBrowser {
     BookRepo bookCollection;
 
         //Find book by ISBN
-        @GetMapping("/books/{bookId}")
+        @GetMapping("/books/id={bookId}")
         public Book findBook(@PathVariable final String bookId){
             return bookCollection.findById(bookId).orElseGet(Book::new);    
         }
     
         //Find books by author
-        @GetMapping("/books/{author}")
+        @GetMapping("/books/author={author}")
         public List<Book> findBooksByAuthor(@PathVariable Author author){
             return bookCollection.findBooksByAuthor(author);
         }
 
         //Find books by genre
-        @GetMapping("/books/{genre}")
+        @GetMapping("/books/genre={genre}")
         public List<Book> findBooksByGenre(@PathVariable String genre){
             return bookCollection.findBooksByGenre(genre);
 
@@ -42,10 +42,10 @@ public class BookBrowser {
         //Find books by Top Sellers(Top 10)
         @GetMapping("/books/top-sellers")
         public List<Book> findBooksByTopSeller(){
-            List<Book> topSellers = new ArrayList<>();
+            List<Book> topSellers = new ArrayList<>(bookCollection.findAll());
             topSellers.sort((o1, o2) -> o1.getCopiesSold().compareTo(o2.getCopiesSold()));
             //Return top 10 sellers
-            return topSellers.subList(0, 9);
+            return ((topSellers.size()>=10) ? topSellers.subList(0, 9) : topSellers.subList(0,topSellers.size()));
         }
 
         //Find books by specified rating (1-5)
