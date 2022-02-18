@@ -14,10 +14,9 @@ public interface BookRepo extends MongoRepository<Book, String> {
 
     //Find books by genre
     public List<Book> findBooksByGenre(String genre);
-    
-       
+     
     //Find books by specified rating (1-5)
-
+    
     //Retrieve List of X Books at a time where X is an integer from a given position in the overall recordset.
 
     //Find Book subset of size X from index 0 to X
