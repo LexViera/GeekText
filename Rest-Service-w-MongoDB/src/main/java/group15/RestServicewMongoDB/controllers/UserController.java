@@ -50,7 +50,7 @@ public class UserController {
         User matchingUser = userCollection.findById(loginCredentials.getUsername()).orElseGet(User::new);
         final String matchingUserPassword = matchingUser.getPassword();
         if (matchingUserPassword == null) return new Message(missingUser, "Error");
-        if (matchingUserPassword != loginCredentials.getPassword()) return new Message(passwordMismatch, "Error");
+        if (!matchingUserPassword.equals(loginCredentials.getPassword())) return new Message(passwordMismatch, "Error");
         return new Message(successfullySignedIn, "Success");
     }
 }
