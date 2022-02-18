@@ -5,10 +5,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import group15.RestServicewMongoDB.models.Message;
 import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.User;
+import group15.RestServicewMongoDB.schemas.Message;
 
 /**
  * BookController
@@ -40,6 +39,6 @@ public class UserController {
 
     @PostMapping("/login")
     public Message loginUser(@RequestBody User userCredentials){
-        
+        return new Message("", "");
     }
 }

@@ -1,4 +1,4 @@
-package group15.RestServicewMongoDB.models;
+package group15.RestServicewMongoDB.schemas;
 
 public class Message {
     private final String message, status; 
