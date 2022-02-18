@@ -43,14 +43,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Message loginUser(@RequestBody Login loginCredentials){    
-        if (isMissingUserOrPassword(loginCredentials.getUsername(), loginCredentials.getPassword())){
+    public Message loginUser(@RequestBody Login loginCredentials){  
+        final String givenUsername, givenPassword;
+        givenUsername = loginCredentials.getUsername();
+        givenPassword = loginCredentials.getPassword();
+        if (isMissingUserOrPassword(givenUsername, givenPassword)){
             return new Message(failedToProvideCredentials, "Error");
         } 
-        User matchingUser = userCollection.findById(loginCredentials.getUsername()).orElseGet(User::new);
+        User matchingUser = userCollection.findById(givenUsername).orElseGet(User::new);
         final String matchingUserPassword = matchingUser.getPassword();
         if (matchingUserPassword == null) return new Message(missingUser, "Error");
-        if (!matchingUserPassword.equals(loginCredentials.getPassword())) return new Message(passwordMismatch, "Error");
+        if (!matchingUserPassword.equals(givenPassword)) return new Message(passwordMismatch, "Error");
         return new Message(successfullySignedIn, "Success");
     }
 }
