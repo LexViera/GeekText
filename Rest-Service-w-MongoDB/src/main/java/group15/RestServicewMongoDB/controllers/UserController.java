@@ -24,7 +24,7 @@ public class UserController {
     final String createdAccount = "Succesfully created account";
 
     @PostMapping("/sign-up")
-    public Message addSingleBook(@RequestBody User userCredentials){
+    public Message signupUser(@RequestBody User userCredentials){
         if (userCredentials.getUsername() == null || userCredentials.getPassword() == null){
             return new Message(failedToProvideCredentials, "Error");
         }
@@ -36,5 +36,10 @@ public class UserController {
         }else{
             return new Message(takenUser, "Error");
         }
+    }
+
+    @PostMapping("/login")
+    public Message loginUser(@RequestBody User userCredentials){
+        
     }
 }
