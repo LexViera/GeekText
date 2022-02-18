@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import group15.RestServicewMongoDB.collections.BookRepo;
+import group15.RestServicewMongoDB.models.Author;
 import group15.RestServicewMongoDB.models.Book;
 
 /**
@@ -29,26 +30,34 @@ public class BookController {
         return "Hello World -> endpoint GET call counter: "+countr;
     }
 
+    //Accepts a POST call to populate the Book collection with an array of books
     @PostMapping("/books")
     public void addBooks(@RequestBody List<Book> books){
         bookCollection.saveAll(books);
     }
 
+    //Accepts a POST call to add a single book object/JSON
     @PostMapping("/books/add")
     public void addBook(@RequestBody Book book){
         bookCollection.save(book);
     }
-
     
+    //Finds all books in the collection
     @GetMapping("/books")
     public List<Book> getBooks(){
         return bookCollection.findAll();
     }
 
-    //Find books by ISBN
+    //Find book by ISBN
     @GetMapping("/books/{bookId}")
     public Book findBook(@PathVariable final String bookId){
         return bookCollection.findById(bookId).orElseGet(Book::new);    
+    }
+
+    //Finds all books associated with an author
+    @GetMapping("/books/{author}")
+    public List<Book> findBooksByAuthor(Author author){
+        return bookCollection.findBooksByAuthor(author);
     }
     
 }
