@@ -1,5 +1,7 @@
 package group15.RestServicewMongoDB.controllers;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -63,10 +65,9 @@ public class UserController {
         if (matchingUserPassword == null) return new Message(missingUser, "Error");
         if (!matchingUserPassword.equals(givenPassword)) return new Message(passwordMismatch, "Error"); 
 
-        Session existingSession = sessionCollection.findByUsername(givenUsername);
-        if (existingSession != null){
-            sessionIdentifier = existingSession.getSessionIdentifier();
-            sessionCollection.deleteById(sessionIdentifier);
+        ArrayList<Session> existingSession = sessionCollection.findByUsername(givenUsername);
+        for (Session session : existingSession){
+            sessionCollection.deleteById(session.getSessionIdentifier());
         }
         Session newSession = new Session(givenUsername);
         sessionCollection.save(newSession);
