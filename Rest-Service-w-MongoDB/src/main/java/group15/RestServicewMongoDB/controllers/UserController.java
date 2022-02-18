@@ -44,8 +44,8 @@ public class UserController {
         if (isMissingUserOrPassword(loginCredentials.getUsername(), loginCredentials.getPassword())){
             return new Message(failedToProvideCredentials, "Error");
         } 
-        System.out.println(loginCredentials.getUsername());
-        System.out.println(loginCredentials.getPassword());
+        User matchingUser = userCollection.findById(loginCredentials.getUsername()).orElseGet(null);
+        if (matchingUser == null) System.out.println("No matching user");
         return new Message("", "");
     }
 }
