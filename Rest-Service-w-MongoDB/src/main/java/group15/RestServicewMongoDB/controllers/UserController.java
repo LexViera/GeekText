@@ -1,5 +1,8 @@
 package group15.RestServicewMongoDB.controllers;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Message loginUser(@RequestBody Login loginCredentials){  
+    public Message loginUser(@RequestBody Login loginCredentials, HttpServletResponse response){  
         final String givenUsername, givenPassword;
         givenUsername = loginCredentials.getUsername();
         givenPassword = loginCredentials.getPassword();
@@ -58,7 +61,12 @@ public class UserController {
         final String matchingUserPassword = matchingUser.getPassword();
         if (matchingUserPassword == null) return new Message(missingUser, "Error");
         if (!matchingUserPassword.equals(givenPassword)) return new Message(passwordMismatch, "Error"); 
-        sessionCollection.save(new Session(givenUsername));
+
+        Session newSession = new Session(givenUsername);
+        sessionCollection.save(newSession);
+        Cookie cookie = new Cookie("session-id", newSession.getSessionIdentifier());
+        response.addCookie(cookie);
+
         return new Message(successfullySignedIn, "Success");
     }
 }
