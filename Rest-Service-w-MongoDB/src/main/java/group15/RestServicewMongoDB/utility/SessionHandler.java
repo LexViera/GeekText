@@ -1,4 +1,4 @@
-package group15.RestServicewMongoDB.controllers;
+package group15.RestServicewMongoDB.utility;
 
 import group15.RestServicewMongoDB.collections.SessionRepo;
 import group15.RestServicewMongoDB.collections.UserRepo;
