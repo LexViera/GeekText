@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import group15.RestServicewMongoDB.collections.SessionRepo;
 import group15.RestServicewMongoDB.collections.UserRepo;
+import group15.RestServicewMongoDB.controllers.utility.MessageHandler;
+import group15.RestServicewMongoDB.controllers.utility.SessionHandler;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.models.Session;
 import group15.RestServicewMongoDB.schemas.Message;
@@ -31,50 +33,23 @@ public class UserController {
     final String sessionIdentifierKey = "session-id";
     final int maxCreditCards = 10;
 
-    final String failedToProvideCredentials =  "Failed to provide username and password credentials.";
-    final String takenUser = "Entered username is taken.";
-    final String createdAccount = "Succesfully created account.";
-    final String missingUser = "Username provided does not exist.";
-    final String passwordMismatch = "Invalid login credentials provided.";
-    final String successfullySignedIn = "Successfully signed in.";
-    final String notSignedIn = "You are not signed in.";
-    final String addedCreditCard = "Succesfully added credit card.";
-    final String maxAmountOfCards = String.format("You have hit the max credit card limit of %d.", maxCreditCards);
-
     private boolean isMissingUserOrPassword(String username, String password){
         return (username == null || password == null) ? true : false;
-    }
-
-    private User fetchRequestUser(HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        String sessionIdentifier = null;
-        for (Cookie cookie : cookies){
-            if (cookie.getName().equals(sessionIdentifierKey)){
-                sessionIdentifier = cookie.getValue();
-            }
-        }
-        if (sessionIdentifier == null) return null;
-        Session existingSession = sessionCollection.findById(sessionIdentifier).orElseGet(Session::new);
-        if (existingSession.getSessionIdentifier() == null){
-            return null;
-        }
-        User user = userCollection.findById(existingSession.getUsername()).orElseGet(User::new);
-        return user;
     }
 
     @PostMapping("/sign-up")
     public Message signupUser(@RequestBody User userCredentials){
         if (isMissingUserOrPassword(userCredentials.getUsername(), userCredentials.getPassword())){
-            return new Message(failedToProvideCredentials, "Error");
+            return MessageHandler.failedToProvideCredentials(); 
         } 
         String username = userCredentials.getUsername();
         boolean isExistingUser = userCollection.existsById(username); 
         if (!isExistingUser){
             userCredentials.setCreditCards(new ArrayList<CreditCard>());
             userCollection.save(userCredentials);
-            return new Message(createdAccount, "Success");
+            return MessageHandler.createdAccount(); 
         }else{
-            return new Message(takenUser, "Error");
+            return MessageHandler.takenUser(); 
         }
     }
 
@@ -84,13 +59,13 @@ public class UserController {
         givenUsername = loginCredentials.getUsername();
         givenPassword = loginCredentials.getPassword();
         if (isMissingUserOrPassword(givenUsername, givenPassword)){
-            return new Message(failedToProvideCredentials, "Error");
+            return MessageHandler.failedToProvideCredentials(); 
         } 
         User matchingUser = userCollection.findById(givenUsername).orElseGet(User::new);
         final String matchingUserPassword = matchingUser.getPassword();
-        if (matchingUserPassword == null) return new Message(missingUser, "Error");
-        if (!matchingUserPassword.equals(givenPassword)) return new Message(passwordMismatch, "Error"); 
-
+        if (matchingUserPassword == null) return MessageHandler.missingUser(); 
+        if (!matchingUserPassword.equals(givenPassword)) return MessageHandler.passwordMismatch(); 
+ 
         ArrayList<Session> existingSession = sessionCollection.findByUsername(givenUsername);
         for (Session session : existingSession){
             sessionCollection.deleteById(session.getSessionIdentifier());
@@ -99,16 +74,16 @@ public class UserController {
         sessionCollection.save(newSession);
         Cookie cookie = new Cookie(sessionIdentifierKey, newSession.getSessionIdentifier());
         response.addCookie(cookie);
-        return new Message(successfullySignedIn, "Success");
+        return MessageHandler.successfullySignedIn(); 
     }
 
     @PostMapping("/add-credit-card")
     public Message addCreditCard(@RequestBody CreditCard creditCardCredentials, HttpServletRequest request){
-        User user = fetchRequestUser(request);
-        if (user == null) return new Message(notSignedIn, "Error");
+        User user = SessionHandler.fetchRequestUser(request);
+        if (user == null) return MessageHandler.notSignedIn(); 
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
         if (userCreditCards.size() >= maxCreditCards){
-            return new Message(maxAmountOfCards, "Error");
+            return MessageHandler.maxAmountOfCards(); 
         }
 
         userCreditCards.add(creditCardCredentials);
@@ -134,13 +109,13 @@ public class UserController {
             }
             return new Message(missingCredentialsMessage.toString(), "Error");
         }
-        return new Message(addedCreditCard, "Success");
+        return MessageHandler.addedCreditCard(); 
     }
 
     @PostMapping("/view-credit-cards")
     public Message viewCreditCards(HttpServletRequest request){
-        User user = fetchRequestUser(request);
-        if (user == null) return new Message(notSignedIn, "Error");
+        User user = SessionHandler.fetchRequestUser(request);
+        if (user == null) return MessageHandler.notSignedIn(); 
 
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
         int numberOfCards = userCreditCards.size();
