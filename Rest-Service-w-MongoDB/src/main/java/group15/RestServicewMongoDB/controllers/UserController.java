@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import group15.RestServicewMongoDB.collections.SessionRepo;
 import group15.RestServicewMongoDB.collections.UserRepo;
-import group15.RestServicewMongoDB.controllers.utility.MessageHandler;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.models.Session;
 import group15.RestServicewMongoDB.schemas.Message;
+import group15.RestServicewMongoDB.utility.MessageHandler;
+import group15.RestServicewMongoDB.utility.SessionHandler;
 import group15.RestServicewMongoDB.schemas.CreditCard;
 import group15.RestServicewMongoDB.schemas.Login;
 
