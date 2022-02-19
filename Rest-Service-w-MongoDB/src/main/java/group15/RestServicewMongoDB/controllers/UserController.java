@@ -151,8 +151,8 @@ public class UserController {
         return response;
     }
 
+    // Pending
     // @PostMapping("/change-username/{username}")
     // public Message changeUsername(@PathVariable final String username){
-
     // }
 }
