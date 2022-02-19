@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import group15.RestServicewMongoDB.collections.SessionRepo;
 import group15.RestServicewMongoDB.collections.UserRepo;
+import group15.RestServicewMongoDB.controllers.utility.SessionHandler;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.models.Session;
 import group15.RestServicewMongoDB.schemas.Message;
@@ -43,23 +44,6 @@ public class UserController {
 
     private boolean isMissingUserOrPassword(String username, String password){
         return (username == null || password == null) ? true : false;
-    }
-
-    private User fetchRequestUser(HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        String sessionIdentifier = null;
-        for (Cookie cookie : cookies){
-            if (cookie.getName().equals(sessionIdentifierKey)){
-                sessionIdentifier = cookie.getValue();
-            }
-        }
-        if (sessionIdentifier == null) return null;
-        Session existingSession = sessionCollection.findById(sessionIdentifier).orElseGet(Session::new);
-        if (existingSession.getSessionIdentifier() == null){
-            return null;
-        }
-        User user = userCollection.findById(existingSession.getUsername()).orElseGet(User::new);
-        return user;
     }
 
     @PostMapping("/sign-up")
@@ -104,7 +88,7 @@ public class UserController {
 
     @PostMapping("/add-credit-card")
     public Message addCreditCard(@RequestBody CreditCard creditCardCredentials, HttpServletRequest request){
-        User user = fetchRequestUser(request);
+        User user = SessionHandler.fetchRequestUser(request);
         if (user == null) return new Message(notSignedIn, "Error");
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
         if (userCreditCards.size() >= maxCreditCards){
@@ -139,7 +123,7 @@ public class UserController {
 
     @PostMapping("/view-credit-cards")
     public Message viewCreditCards(HttpServletRequest request){
-        User user = fetchRequestUser(request);
+        User user = SessionHandler.fetchRequestUser(request);
         if (user == null) return new Message(notSignedIn, "Error");
 
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
