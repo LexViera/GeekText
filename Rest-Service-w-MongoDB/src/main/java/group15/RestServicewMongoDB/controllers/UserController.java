@@ -27,6 +27,9 @@ public class UserController {
     @Autowired
     private SessionRepo sessionCollection;
 
+    final String sessionIdentifierKey = "session-id";
+    final int maxCreditCards = 10;
+
     final String failedToProvideCredentials =  "Failed to provide username and password credentials.";
     final String takenUser = "Entered username is taken.";
     final String createdAccount = "Succesfully created account";
@@ -35,8 +38,7 @@ public class UserController {
     final String successfullySignedIn = "Successfully signed in";
     final String notSignedIn = "You are not signed in";
     final String addedCreditCard = "Succesfully added credit card";
-
-    final String sessionIdentifierKey = "session-id";
+    final String maxAmountOfCards = String.format("You have hit the max credit card limit of %d", maxCreditCards);
 
     private boolean isMissingUserOrPassword(String username, String password){
         return (username == null || password == null) ? true : false;
@@ -98,6 +100,9 @@ public class UserController {
         }
         User user = userCollection.findById(existingSession.getUsername()).orElseGet(User::new);
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
+        if (userCreditCards.size() >= maxCreditCards){
+            return new Message(maxAmountOfCards, "Error");
+        }
 
         userCreditCards.add(creditCardCredentials);
         user.setCreditCards(userCreditCards);
