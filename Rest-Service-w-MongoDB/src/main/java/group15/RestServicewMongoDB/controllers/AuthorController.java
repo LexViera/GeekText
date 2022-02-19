@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import group15.RestServicewMongoDB.collections.AuthorRepo;
 import group15.RestServicewMongoDB.controllers.utility.MessageHandler;
-import group15.RestServicewMongoDB.controllers.utility.SessionHandler;
 import group15.RestServicewMongoDB.models.Author;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.schemas.Message;

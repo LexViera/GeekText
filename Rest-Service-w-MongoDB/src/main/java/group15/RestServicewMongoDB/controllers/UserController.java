@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import group15.RestServicewMongoDB.collections.SessionRepo;
 import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.controllers.utility.MessageHandler;
-import group15.RestServicewMongoDB.controllers.utility.SessionHandler;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.models.Session;
 import group15.RestServicewMongoDB.schemas.Message;
@@ -79,7 +78,7 @@ public class UserController {
 
     @PostMapping("/add-credit-card")
     public Message addCreditCard(@RequestBody CreditCard creditCardCredentials, HttpServletRequest request){
-        User user = SessionHandler.fetchRequestUser(request);
+        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
         if (user == null) return MessageHandler.notSignedIn(); 
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
         if (userCreditCards.size() >= maxCreditCards){
@@ -114,7 +113,7 @@ public class UserController {
 
     @PostMapping("/view-credit-cards")
     public Message viewCreditCards(HttpServletRequest request){
-        User user = SessionHandler.fetchRequestUser(request);
+        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
         if (user == null) return MessageHandler.notSignedIn(); 
 
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
