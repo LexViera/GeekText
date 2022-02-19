@@ -17,39 +17,39 @@ public class MessageHandler {
     private final static String ERROR  = "ERROR";
     private final static  String SUCCESS = "SUCCESS";
 
-    static Message failedToProvideCredentials(){
+    public static Message failedToProvideCredentials(){
         return new Message(failedToProvideCredentials, ERROR);
     }
 
-    static Message takenUser(){
+    public static Message takenUser(){
         return new Message(takenUser, ERROR);
     }
 
-    static Message createdAccount(){
+    public static Message createdAccount(){
         return new Message(createdAccount, SUCCESS);
     }
 
-    static Message missingUser(){
+    public static Message missingUser(){
         return new Message(missingUser, ERROR);
     }
 
-    static Message passwordMismatch(){
+    public static Message passwordMismatch(){
         return new Message(passwordMismatch, ERROR);
     }
 
-    static Message successfullySignedIn(){
+    public static Message successfullySignedIn(){
         return new Message(successfullySignedIn, SUCCESS);
     }
 
-    static Message notSignedIn(){
+    public static Message notSignedIn(){
         return new Message(notSignedIn, ERROR);
     }
 
-    static Message addedCreditCard(){
+    public static Message addedCreditCard(){
         return new Message(addedCreditCard, SUCCESS);
     }
 
-    static Message maxAmountOfCards(){
+    public static Message maxAmountOfCards(){
         return new Message(maxAmountOfCards, ERROR);
     }
 }
