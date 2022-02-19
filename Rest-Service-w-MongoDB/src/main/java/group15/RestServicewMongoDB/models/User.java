@@ -3,6 +3,9 @@ package group15.RestServicewMongoDB.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import group15.RestServicewMongoDB.schemas.CreditCard;
+import java.util.ArrayList;
+
 @Document
 public class User {
     @Id
@@ -13,6 +16,7 @@ public class User {
     private String emailAddress;
     private String homeAddress;
     private String userRole;
+    private ArrayList<CreditCard> creditCards; 
 
     public User(){}
 
@@ -23,6 +27,7 @@ public class User {
         this.emailAddress = emailAddress;
         this.homeAddress = homeAddress;
         this.userRole = userRole;
+        this.creditCards = new ArrayList<CreditCard>();
     }
   
     public String getUsername(){
@@ -49,10 +54,19 @@ public class User {
         return userRole;
     }
 
+    public ArrayList<CreditCard> getCreditCards(){
+        return creditCards;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
     public void setUserRole(String userRole) {
         this.userRole = userRole;
+    }
+
+    public void setCreditCards(ArrayList<CreditCard> creditCards){
+        this.creditCards = creditCards;
     }
 }
