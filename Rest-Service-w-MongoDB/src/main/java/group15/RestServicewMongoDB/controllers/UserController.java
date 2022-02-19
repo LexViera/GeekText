@@ -115,10 +115,11 @@ public class UserController {
         if (missingCredentials.size() > 0){
             StringBuilder missingCredentialsMessage = new StringBuilder();
             missingCredentialsMessage.append("Missing the following credentials: ");
-            for (String missingCredential : missingCredentials){
-                missingCredentialsMessage.append(missingCredential + ",");
-            } 
-            missingCredentialsMessage.deleteCharAt(missingCredentials.size() - 1);
+            while (missingCredentials.size() > 0){
+                String missingCredential = missingCredentials.remove(missingCredentials.size() - 1); 
+                missingCredentialsMessage.append(missingCredential);
+                if (missingCredentials.size() > 0) missingCredentialsMessage.append(",");
+            }
             return new Message(missingCredentialsMessage.toString(), "Error");
         }
         return new Message(addedCreditCard, "Success");
