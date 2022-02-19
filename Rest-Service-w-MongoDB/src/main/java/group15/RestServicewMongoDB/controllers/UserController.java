@@ -44,6 +44,23 @@ public class UserController {
         return (username == null || password == null) ? true : false;
     }
 
+    private User fetchRequestUser(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        String sessionIdentifier = null;
+        for (Cookie cookie : cookies){
+            if (cookie.getName().equals(sessionIdentifierKey)){
+                sessionIdentifier = cookie.getValue();
+            }
+        }
+        if (sessionIdentifier == null) return null;
+        Session existingSession = sessionCollection.findById(sessionIdentifier).orElseGet(Session::new);
+        if (existingSession.getSessionIdentifier() == null){
+            return null;
+        }
+        User user = userCollection.findById(existingSession.getUsername()).orElseGet(User::new);
+        return user;
+    }
+
     @PostMapping("/sign-up")
     public Message signupUser(@RequestBody User userCredentials){
         if (isMissingUserOrPassword(userCredentials.getUsername(), userCredentials.getPassword())){
@@ -86,19 +103,8 @@ public class UserController {
 
     @PostMapping("/add-credit-card")
     public Message addCreditCard(@RequestBody CreditCard creditCardCredentials, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        String sessionIdentifier = null;
-        for (Cookie cookie : cookies){
-            if (cookie.getName().equals(sessionIdentifierKey)){
-                sessionIdentifier = cookie.getValue();
-            }
-        }
-        if (sessionIdentifier == null) return new Message(notSignedIn, "Error");
-        Session existingSession = sessionCollection.findById(sessionIdentifier).orElseGet(Session::new);
-        if (existingSession.getSessionIdentifier() == null){
-            return new Message(notSignedIn, "Error");
-        }
-        User user = userCollection.findById(existingSession.getUsername()).orElseGet(User::new);
+        User user = fetchRequestUser(request);
+        if (user == null) return new Message(notSignedIn, "Error");
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
         if (userCreditCards.size() >= maxCreditCards){
             return new Message(maxAmountOfCards, "Error");
@@ -128,5 +134,11 @@ public class UserController {
             return new Message(missingCredentialsMessage.toString(), "Error");
         }
         return new Message(addedCreditCard, "Success");
+    }
+
+    @PostMapping("/view-credit-cards")
+    public ArrayList<CreditCard> viewCreditCards(HttpServletRequest request){
+        User user = fetchRequestUser(request);
+        return user.getCreditCards();
     }
 }
