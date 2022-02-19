@@ -91,20 +91,36 @@ public class UserController {
                 sessionIdentifier = cookie.getValue();
             }
         }
-        // can be seperated into a check session method
         if (sessionIdentifier == null) return new Message(notSignedIn, "Error");
         Session existingSession = sessionCollection.findById(sessionIdentifier).orElseGet(Session::new);
         if (existingSession.getSessionIdentifier() == null){
             return new Message(notSignedIn, "Error");
         }
         User user = userCollection.findById(existingSession.getUsername()).orElseGet(User::new);
-
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
 
         userCreditCards.add(creditCardCredentials);
         user.setCreditCards(userCreditCards);
         userCollection.save(user);
 
+        String firstName = creditCardCredentials.getFirstName();
+        String lastName = creditCardCredentials.getLastName();
+        String creditCardNumber = creditCardCredentials.getCreditCardNumber();
+
+        ArrayList<String> missingCredentials = new ArrayList<>();
+        if (firstName == null) missingCredentials.add("firstName"); 
+        if (lastName == null) missingCredentials.add("lastName");
+        if (creditCardNumber == null) missingCredentials.add("creditCardNumber");
+
+        if (missingCredentials.size() > 0){
+            StringBuilder missingCredentialsMessage = new StringBuilder();
+            missingCredentialsMessage.append("Missing the following credentials: ");
+            for (String missingCredential : missingCredentials){
+                missingCredentialsMessage.append(missingCredential + ",");
+            } 
+            missingCredentialsMessage.deleteCharAt(missingCredentials.size() - 1);
+            return new Message(missingCredentialsMessage.toString(), "Error");
+        }
         return new Message(addedCreditCard, "Success");
     }
 }
