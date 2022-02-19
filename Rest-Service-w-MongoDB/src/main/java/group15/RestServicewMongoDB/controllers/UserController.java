@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,13 +33,13 @@ public class UserController {
 
     final String failedToProvideCredentials =  "Failed to provide username and password credentials.";
     final String takenUser = "Entered username is taken.";
-    final String createdAccount = "Succesfully created account";
-    final String missingUser = "Username provided does not exist";
-    final String passwordMismatch = "Invalid login credentials provided";
-    final String successfullySignedIn = "Successfully signed in";
-    final String notSignedIn = "You are not signed in";
-    final String addedCreditCard = "Succesfully added credit card";
-    final String maxAmountOfCards = String.format("You have hit the max credit card limit of %d", maxCreditCards);
+    final String createdAccount = "Succesfully created account.";
+    final String missingUser = "Username provided does not exist.";
+    final String passwordMismatch = "Invalid login credentials provided.";
+    final String successfullySignedIn = "Successfully signed in.";
+    final String notSignedIn = "You are not signed in.";
+    final String addedCreditCard = "Succesfully added credit card.";
+    final String maxAmountOfCards = String.format("You have hit the max credit card limit of %d.", maxCreditCards);
 
     private boolean isMissingUserOrPassword(String username, String password){
         return (username == null || password == null) ? true : false;
@@ -137,8 +138,21 @@ public class UserController {
     }
 
     @PostMapping("/view-credit-cards")
-    public ArrayList<CreditCard> viewCreditCards(HttpServletRequest request){
+    public Message viewCreditCards(HttpServletRequest request){
         User user = fetchRequestUser(request);
-        return user.getCreditCards();
+        if (user == null) return new Message(notSignedIn, "Error");
+
+        ArrayList<CreditCard> userCreditCards = user.getCreditCards();
+        int numberOfCards = userCreditCards.size();
+        String message = String.format("You have %s added.", numberOfCards);
+        Message response = new Message(message, "Success");
+        response.setCreditCards(userCreditCards);
+
+        return response;
     }
+
+    // @PostMapping("/change-username/{username}")
+    // public Message changeUsername(@PathVariable final String username){
+
+    // }
 }
