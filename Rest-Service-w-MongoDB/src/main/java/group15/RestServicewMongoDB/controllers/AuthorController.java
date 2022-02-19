@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import group15.RestServicewMongoDB.collections.AuthorRepo;
+import group15.RestServicewMongoDB.controllers.utility.MessageHandler;
 import group15.RestServicewMongoDB.controllers.utility.SessionHandler;
 import group15.RestServicewMongoDB.models.Author;
 import group15.RestServicewMongoDB.models.User;
+import group15.RestServicewMongoDB.schemas.Message;
 
 @RestController
 public class AuthorController {
@@ -22,12 +24,9 @@ public class AuthorController {
 
     @PostMapping("/authors")
     public void addAuthors(@RequestBody List<Author> authors, HttpServletRequest request){
-        User user = SessionHandler.fetchRequestUser(request);
-        if (user == null) {
-            
-        }
         authorCollection.saveAll(authors);
     }
+
     @PostMapping("/authors/add")
     public void addAuthor(@RequestBody Author author){
         authorCollection.save(author);

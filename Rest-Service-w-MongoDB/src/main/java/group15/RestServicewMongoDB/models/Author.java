@@ -10,6 +10,8 @@ public class Author {
     private String biography;
     private String publisher;
 
+    public Author(){}
+
     public Author(String firstName, String lastName, String biography, String publisher) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,7 +42,4 @@ public class Author {
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
-
-    
-    
 }

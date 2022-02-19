@@ -26,6 +26,7 @@ public class SessionHandler {
             }
         }
         if (sessionIdentifier == null) return null;
+        if (sessionCollection == null || userCollection == null) return null;
         Session existingSession = sessionCollection.findById(sessionIdentifier).orElseGet(Session::new);
         if (existingSession.getSessionIdentifier() == null){
             return null;
@@ -34,3 +35,5 @@ public class SessionHandler {
         return user;
     }
 }
+
+
