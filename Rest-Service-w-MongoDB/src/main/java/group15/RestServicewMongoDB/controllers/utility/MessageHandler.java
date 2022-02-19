@@ -12,7 +12,7 @@ public class MessageHandler {
     static String successfullySignedIn = "Successfully signed in.";
     static String notSignedIn = "You are not signed in.";
     static String addedCreditCard = "Succesfully added credit card.";
-    static String maxAmountOfCards = String.format("You have hit the max credit card limit.");
+    static String maxAmountOfCards = "You have hit the max credit card limit.";
 
     private final static String ERROR  = "ERROR";
     private final static  String SUCCESS = "SUCCESS";
