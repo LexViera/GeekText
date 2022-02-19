@@ -20,7 +20,7 @@ public class AuthorController {
     public void addAuthors(@RequestBody List<Author> authors){
         authorCollection.saveAll(authors);
     }
-    @PostMapping("/authors")
+    @PostMapping("/authors/add")
     public void addAuthor(@RequestBody Author author){
         authorCollection.save(author);
     }
