@@ -12,6 +12,7 @@ public class SessionHandler {
     
     public static User fetchRequestUser(HttpServletRequest request, SessionRepo sessionCollection, UserRepo userCollection){
         Cookie[] cookies = request.getCookies();
+        if (cookies == null) return null;
         String sessionIdentifier = null;
         for (Cookie cookie : cookies){
             if (cookie.getName().equals(sessionIdentifierKey)){
