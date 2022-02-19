@@ -123,13 +123,13 @@ public class UserController {
         if (lastName == null) missingCredentials.add("lastName");
         if (creditCardNumber == null) missingCredentials.add("creditCardNumber");
 
-        if (missingCredentials.size() > 0){
+        if (!missingCredentials.isEmpty()){
             StringBuilder missingCredentialsMessage = new StringBuilder();
             missingCredentialsMessage.append("Missing the following credentials: ");
-            while (missingCredentials.size() > 0){
+            while (!missingCredentials.isEmpty()){
                 String missingCredential = missingCredentials.remove(missingCredentials.size() - 1); 
                 missingCredentialsMessage.append(missingCredential);
-                if (missingCredentials.size() > 0) missingCredentialsMessage.append(",");
+                if (!missingCredentials.isEmpty()) missingCredentialsMessage.append(",");
             }
             return new Message(missingCredentialsMessage.toString(), "Error");
         }
