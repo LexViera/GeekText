@@ -13,6 +13,7 @@ public class MessageHandler {
     static String notSignedIn = "You are not signed in.";
     static String addedCreditCard = "Succesfully added credit card.";
     static String maxAmountOfCards = "You have hit the max credit card limit.";
+    static String updatedUser = "Succesfully updated username";
 
     private final static String ERROR  = "ERROR";
     private final static  String SUCCESS = "SUCCESS";
@@ -51,5 +52,9 @@ public class MessageHandler {
 
     public static Message maxAmountOfCards(){
         return new Message(maxAmountOfCards, ERROR);
+    }
+
+    public static Message updatedUser(){
+        return new Message(updatedUser, SUCCESS);
     }
 }

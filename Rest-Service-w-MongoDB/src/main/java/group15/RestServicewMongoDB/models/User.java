@@ -69,4 +69,8 @@ public class User {
     public void setCreditCards(ArrayList<CreditCard> creditCards){
         this.creditCards = creditCards;
     }
+
+    public void setUsername(String username){
+        this.username = username;
+    }
 }

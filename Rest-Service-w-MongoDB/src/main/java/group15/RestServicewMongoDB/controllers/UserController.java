@@ -126,8 +126,16 @@ public class UserController {
         return response;
     }
 
-    // Pending
-    // @PostMapping("/change-username/{username}")
-    // public Message changeUsername(@PathVariable final String username){
-    // }
+    @PostMapping("/change-username/{username}")
+    public Message changeUsername(@PathVariable final String username, HttpServletRequest request){
+        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
+        if (user == null) return MessageHandler.notSignedIn(); 
+        if (userCollection.existsById(username)) return MessageHandler.takenUser();
+        
+        userCollection.deleteById(username);
+        user.setUsername(username);
+        userCollection.save(user);
+
+        return MessageHandler.updatedUser();
+    }
 }
