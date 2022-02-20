@@ -19,6 +19,7 @@ import group15.RestServicewMongoDB.models.Session;
 import group15.RestServicewMongoDB.schemas.Message;
 import group15.RestServicewMongoDB.utility.MessageHandler;
 import group15.RestServicewMongoDB.utility.SessionHandler;
+import group15.RestServicewMongoDB.schemas.ChangePassword;
 import group15.RestServicewMongoDB.schemas.CreditCard;
 import group15.RestServicewMongoDB.schemas.Login;
 
@@ -127,12 +128,16 @@ public class UserController {
     }
 
     @PostMapping("/change-password")
-    public Message changeUsername(@PathVariable final String username, HttpServletRequest request){
+    public Message changeUsername(@PathVariable final ChangePassword changePasswordCredentials, HttpServletRequest request){
         User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
         if (user == null) return MessageHandler.notSignedIn(); 
         
-        
+        String oldPassword = changePasswordCredentials.getOldPassword();
+        String newPassword = changePasswordCredentials.getNewPassword();
 
-        return MessageHandler.updatedUser();
+        if (oldPassword == null || newPassword == null) return MessageHandler.missingChangePasswordCredentials();
+        if (!user.getPassword().equals(oldPassword)) return MessageHandler.providedIncorrectOldPassword();
+        
+        return MessageHandler.updatedUser("password");
     }
 }

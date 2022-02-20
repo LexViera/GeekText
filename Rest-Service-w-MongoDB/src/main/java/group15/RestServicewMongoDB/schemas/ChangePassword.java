@@ -1,7 +1,9 @@
 package group15.RestServicewMongoDB.schemas;
 
 public class ChangePassword {
-    private final String oldPassword, newPassword; 
+    private String oldPassword, newPassword; 
+
+    public ChangePassword(){}
 
     public ChangePassword(String oldPassword, String newPassword){
         this.oldPassword = oldPassword;
