@@ -17,6 +17,8 @@ public class User {
     private String homeAddress;
     private String userRole;
     private ArrayList<CreditCard> creditCards; 
+    private ArrayList<ShoppingCart> cart;
+    //private ArrayList<Wishlist> wishlist;
 
     public User(){}
 
@@ -28,6 +30,8 @@ public class User {
         this.homeAddress = homeAddress;
         this.userRole = userRole;
         this.creditCards = new ArrayList<CreditCard>();
+        this.cart = new ArrayList<>();
+        //this.wishlist = new ArrayList<>();
     }
   
     public String getUsername(){
@@ -69,4 +73,14 @@ public class User {
     public void setCreditCards(ArrayList<CreditCard> creditCards){
         this.creditCards = creditCards;
     }
+
+    public ArrayList<ShoppingCart> getCart() {
+        return cart;
+    }
+
+    public void setCart(ArrayList<ShoppingCart> cart) {
+        this.cart = cart;
+    }
+
+    
 }
