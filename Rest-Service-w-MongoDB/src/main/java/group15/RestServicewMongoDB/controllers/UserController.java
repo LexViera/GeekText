@@ -135,6 +135,9 @@ public class UserController {
 
         if (oldPassword == null || newPassword == null) return MessageHandler.missingChangePasswordCredentials();
         if (!user.getPassword().equals(oldPassword)) return MessageHandler.providedIncorrectOldPassword();
+
+        user.setPassword(newPassword);
+        userCollection.save(user);
         
         return MessageHandler.updatedUser("password");
     }
