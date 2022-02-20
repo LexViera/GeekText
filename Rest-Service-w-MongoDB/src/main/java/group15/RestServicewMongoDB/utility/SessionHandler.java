@@ -1,4 +1,4 @@
-package group15.RestServicewMongoDB.controllers;
+package group15.RestServicewMongoDB.utility;
 
 import group15.RestServicewMongoDB.collections.SessionRepo;
 import group15.RestServicewMongoDB.collections.UserRepo;
@@ -12,6 +12,7 @@ public class SessionHandler {
     
     public static User fetchRequestUser(HttpServletRequest request, SessionRepo sessionCollection, UserRepo userCollection){
         Cookie[] cookies = request.getCookies();
+        if (cookies == null) return null;
         String sessionIdentifier = null;
         for (Cookie cookie : cookies){
             if (cookie.getName().equals(sessionIdentifierKey)){

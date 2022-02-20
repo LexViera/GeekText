@@ -1,4 +1,4 @@
-package group15.RestServicewMongoDB.controllers.utility;
+package group15.RestServicewMongoDB.utility;
 
 import group15.RestServicewMongoDB.schemas.Message;
 
