@@ -74,6 +74,10 @@ public class User {
         this.creditCards = creditCards;
     }
 
+    public void setUsername(String username){
+        this.username = username;
+    }
+
     public ArrayList<ShoppingCart> getCart() {
         return cart;
     }
@@ -81,6 +85,4 @@ public class User {
     public void setCart(ArrayList<ShoppingCart> cart) {
         this.cart = cart;
     }
-
-    
 }
