@@ -42,7 +42,7 @@ public class BookController {
     private int countr = 0;
     @GetMapping("/test")
     public Message print(HttpServletRequest request){
-        Message response = AccessHandler.enableAdminAccess(request, sessionCollection, userCollection);
+        Message response = AccessHandler.enableUserAccess(request, sessionCollection, userCollection);
         //Success Message
         if(response == null) {
             //To-do

@@ -15,7 +15,7 @@ public class User {
     private String name;
     private String emailAddress;
     private String homeAddress;
-    private Boolean isAdmin;
+    private Boolean isAdmin = false;
     private ArrayList<CreditCard> creditCards; 
     private ArrayList<ShoppingCart> cart;
     //private ArrayList<Wishlist> wishlist;
