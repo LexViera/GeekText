@@ -126,7 +126,7 @@ public class UserController {
     }
 
     @PostMapping("/change-password")
-    public Message changeUsername(@PathVariable final ChangePassword changePasswordCredentials, HttpServletRequest request){
+    public Message changeUsername(@RequestBody final ChangePassword changePasswordCredentials, HttpServletRequest request){
         User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
         if (user == null) return MessageHandler.notSignedIn(); 
         
