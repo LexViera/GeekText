@@ -17,11 +17,12 @@ import group15.RestServicewMongoDB.models.Author;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.schemas.Message;
 import group15.RestServicewMongoDB.utility.MessageHandler;
+import group15.RestServicewMongoDB.utility.SessionHandler;
 
 @RestController
 public class AuthorController {
 
-    private static final String SessionHandler = null;
+    
     @Autowired
     AuthorRepo authorCollection;
     @Autowired
@@ -29,18 +30,21 @@ public class AuthorController {
     @Autowired
     UserRepo userCollection;
 
-    @PostMapping("/add-authors")
+    @PostMapping("/authors/add")
     public Message addAuthors(@RequestBody List<Author> authors, HttpServletRequest request){
-        
         User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
-        if (user == null) return MessageHandler.notSignedIn(); 
-        
+        if(user == null) return MessageHandler.notSignedIn();
+        if (!user.isAdmin()) return MessageHandler.notAdmin(); 
         authorCollection.saveAll(authors);
-        return MessageHandler.notSignedIn();
+        return MessageHandler.customSuccessMesssage("Successfully added all authors.");
     }
 
-    @PostMapping("/add-author")
-    public void addAuthor(@RequestBody Author author){
+    @PostMapping("/author/add")
+    public Message addAuthor(@RequestBody Author author,HttpServletRequest request){
+        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
+        if(user == null) return MessageHandler.notSignedIn();
+        if (!user.isAdmin()) return MessageHandler.notAdmin(); 
         authorCollection.save(author);
+        return MessageHandler.customSuccessMesssage("Successfully added author.");
     }
 }
