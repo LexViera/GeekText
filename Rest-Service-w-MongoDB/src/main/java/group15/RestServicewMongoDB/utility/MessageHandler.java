@@ -1,5 +1,8 @@
 package group15.RestServicewMongoDB.utility;
 
+import java.util.List;
+
+import group15.RestServicewMongoDB.models.Book;
 import group15.RestServicewMongoDB.schemas.Message;
 
 public class MessageHandler {
@@ -14,7 +17,9 @@ public class MessageHandler {
     private final static String notSignedIn = "You are not signed in.";
     private final static String addedCreditCard = "Succesfully added credit card.";
     private final static String maxAmountOfCards = "You have hit the max credit card limit.";
-    private final static String notAdmin = "You do not have permision";
+    private final static String notAdmin = "Unauthorized";
+    private final static String addedBooks = "Successfully added book(s)";
+    
 
     private final static String ERROR  = "ERROR";
     private final static  String SUCCESS = "SUCCESS";
@@ -25,6 +30,14 @@ public class MessageHandler {
 
     public static Message customErrorMesssage(String customMessage){
         return new Message(customMessage, ERROR);
+    }
+
+    public static Message returnBooks(List<Book> booksList){ 
+        return new Message(booksList.toString(), SUCCESS);
+    }
+
+    public static Message addedBooks(){
+        return new Message(addedBooks, SUCCESS);
     }
 
     public static Message notAdmin(){
