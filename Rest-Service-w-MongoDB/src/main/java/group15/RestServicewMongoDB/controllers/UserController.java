@@ -132,7 +132,7 @@ public class UserController {
         if (user == null) return MessageHandler.notSignedIn(); 
         if (userCollection.existsById(username)) return MessageHandler.takenUser();
         
-        userCollection.deleteById(username);
+        userCollection.deleteById(user.getUsername());
         user.setUsername(username);
         userCollection.save(user);
 
