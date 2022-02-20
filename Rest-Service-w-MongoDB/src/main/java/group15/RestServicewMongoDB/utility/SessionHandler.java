@@ -8,7 +8,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 public class SessionHandler {
-    final static String sessionIdentifierKey = "session-id";
+    
+    public final static String sessionIdentifierKey = "session-id";
     
     public static User fetchRequestUser(HttpServletRequest request, SessionRepo sessionCollection, UserRepo userCollection){
         Cookie[] cookies = request.getCookies();

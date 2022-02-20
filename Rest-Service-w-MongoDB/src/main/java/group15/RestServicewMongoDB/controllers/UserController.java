@@ -30,9 +30,8 @@ public class UserController {
     @Autowired
     private SessionRepo sessionCollection;
 
-    final String sessionIdentifierKey = "session-id";
     final int maxCreditCards = 10;
-
+    
     private boolean isMissingUserOrPassword(String username, String password){
         return (username == null || password == null) ? true : false;
     }
@@ -72,7 +71,7 @@ public class UserController {
         }
         Session newSession = new Session(givenUsername);
         sessionCollection.save(newSession);
-        Cookie cookie = new Cookie(sessionIdentifierKey, newSession.getSessionIdentifier());
+        Cookie cookie = new Cookie(SessionHandler.sessionIdentifierKey, newSession.getSessionIdentifier());
         response.addCookie(cookie);
         return MessageHandler.successfullySignedIn(); 
     }
