@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +30,6 @@ public class UserController {
     @Autowired
     private SessionRepo sessionCollection;
 
-    final String sessionIdentifierKey = "session-id";
     final int maxCreditCards = 10;
 
     private boolean isMissingUserOrPassword(String username, String password){
@@ -73,7 +71,7 @@ public class UserController {
         }
         Session newSession = new Session(givenUsername);
         sessionCollection.save(newSession);
-        Cookie cookie = new Cookie(sessionIdentifierKey, newSession.getSessionIdentifier());
+        Cookie cookie = new Cookie(SessionHandler.sessionIdentifierKey, newSession.getSessionIdentifier());
         response.addCookie(cookie);
         return MessageHandler.successfullySignedIn(); 
     }

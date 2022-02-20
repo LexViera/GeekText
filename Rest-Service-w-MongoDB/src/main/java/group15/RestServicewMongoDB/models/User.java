@@ -15,19 +15,23 @@ public class User {
     private String name;
     private String emailAddress;
     private String homeAddress;
-    private String userRole;
+    private Boolean isAdmin = false;
     private ArrayList<CreditCard> creditCards; 
+    private ArrayList<ShoppingCart> cart;
+    //private ArrayList<Wishlist> wishlist;
 
     public User(){}
 
-    public User(String username, String password, String name, String emailAddress, String homeAddress, String userRole){
+    public User(String username, String password, String name, String emailAddress, String homeAddress, Boolean isAdmin){
         this.username = username;
         this.password = password;
         this.name = name;
         this.emailAddress = emailAddress;
         this.homeAddress = homeAddress;
-        this.userRole = userRole;
+        this.isAdmin = (isAdmin) ? true : false;
         this.creditCards = new ArrayList<CreditCard>();
+        this.cart = new ArrayList<>();
+        //this.wishlist = new ArrayList<>();
     }
   
     public String getUsername(){
@@ -50,8 +54,8 @@ public class User {
         return homeAddress;
     }
 
-    public String getUserRole() {
-        return userRole;
+    public Boolean isAdmin() {
+        return isAdmin;
     }
 
     public ArrayList<CreditCard> getCreditCards(){
@@ -62,8 +66,8 @@ public class User {
         this.password = password;
     }
 
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public void setCreditCards(ArrayList<CreditCard> creditCards){
@@ -72,5 +76,13 @@ public class User {
 
     public void setUsername(String username){
         this.username = username;
+    }
+
+    public ArrayList<ShoppingCart> getCart() {
+        return cart;
+    }
+
+    public void setCart(ArrayList<ShoppingCart> cart) {
+        this.cart = cart;
     }
 }

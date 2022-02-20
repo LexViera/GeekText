@@ -1,11 +1,33 @@
 package group15.RestServicewMongoDB.utility;
 
+import java.util.List;
+
+import group15.RestServicewMongoDB.models.Book;
 import group15.RestServicewMongoDB.schemas.Message;
 
 public class MessageHandler {
-
     private final static String ERROR  = "ERROR";
     private final static  String SUCCESS = "SUCCESS";
+
+    public static Message customSuccessMesssage(String customMessage){
+        return new Message(customMessage, SUCCESS);
+    }
+
+    public static Message customErrorMesssage(String customMessage){
+        return new Message(customMessage, ERROR);
+    }
+
+    public static Message returnBooks(List<Book> booksList){ 
+        return new Message(booksList.toString(), SUCCESS);
+    }
+
+    public static Message addedBooks(){
+        return new Message(addedBooks, SUCCESS);
+    }
+
+    public static Message notAdmin(){
+        return new Message(notAdmin, ERROR);
+    }
 
     public static Message failedToProvideCredentials(){
         String failedToProvideCredentials =  "Failed to provide username and password credentials.";
