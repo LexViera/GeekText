@@ -4,15 +4,16 @@ import group15.RestServicewMongoDB.schemas.Message;
 
 public class MessageHandler {
 
-    static String failedToProvideCredentials =  "Failed to provide username and password credentials.";
-    static String takenUser = "Entered username is taken.";
-    static String createdAccount = "Succesfully created account.";
-    static String missingUser = "Username provided does not exist.";
-    static String passwordMismatch = "Invalid login credentials provided.";
-    static String successfullySignedIn = "Successfully signed in.";
-    static String notSignedIn = "You are not signed in.";
-    static String addedCreditCard = "Succesfully added credit card.";
-    static String maxAmountOfCards = "You have hit the max credit card limit.";
+
+    private static String failedToProvideCredentials =  "Failed to provide username and password credentials.";
+    private static String takenUser = "Entered username is taken.";
+    private static String createdAccount = "Succesfully created account.";
+    private static String missingUser = "Username provided does not exist.";
+    private static String passwordMismatch = "Invalid login credentials provided.";
+    private static String successfullySignedIn = "Successfully signed in.";
+    private static String notSignedIn = "You are not signed in.";
+    private static String addedCreditCard = "Succesfully added credit card.";
+    private static String maxAmountOfCards = "You have hit the max credit card limit.";
 
     private final static String ERROR  = "ERROR";
     private final static  String SUCCESS = "SUCCESS";
