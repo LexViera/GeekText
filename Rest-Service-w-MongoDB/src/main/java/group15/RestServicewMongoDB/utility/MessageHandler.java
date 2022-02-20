@@ -5,18 +5,31 @@ import group15.RestServicewMongoDB.schemas.Message;
 public class MessageHandler {
 
 
-    private static String failedToProvideCredentials =  "Failed to provide username and password credentials.";
-    private static String takenUser = "Entered username is taken.";
-    private static String createdAccount = "Succesfully created account.";
-    private static String missingUser = "Username provided does not exist.";
-    private static String passwordMismatch = "Invalid login credentials provided.";
-    private static String successfullySignedIn = "Successfully signed in.";
-    private static String notSignedIn = "You are not signed in.";
-    private static String addedCreditCard = "Succesfully added credit card.";
-    private static String maxAmountOfCards = "You have hit the max credit card limit.";
+    private final static String failedToProvideCredentials =  "Failed to provide username and password credentials.";
+    private final static String takenUser = "Entered username is taken.";
+    private final static String createdAccount = "Succesfully created account.";
+    private final static String missingUser = "Username provided does not exist.";
+    private final static String passwordMismatch = "Invalid login credentials provided.";
+    private final static String successfullySignedIn = "Successfully signed in.";
+    private final static String notSignedIn = "You are not signed in.";
+    private final static String addedCreditCard = "Succesfully added credit card.";
+    private final static String maxAmountOfCards = "You have hit the max credit card limit.";
+    private final static String notAdmin = "You do not have permision";
 
     private final static String ERROR  = "ERROR";
     private final static  String SUCCESS = "SUCCESS";
+
+    public static Message customSuccessMesssage(String customMessage){
+        return new Message(customMessage, SUCCESS);
+    }
+
+    public static Message customErrorMesssage(String customMessage){
+        return new Message(customMessage, ERROR);
+    }
+
+    public static Message notAdmin(){
+        return new Message(notAdmin, ERROR);
+    }
 
     public static Message failedToProvideCredentials(){
         return new Message(failedToProvideCredentials, ERROR);
