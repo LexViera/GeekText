@@ -16,6 +16,7 @@ import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.models.Session;
 import group15.RestServicewMongoDB.schemas.Message;
+import group15.RestServicewMongoDB.schemas.ViewCreditCards;
 import group15.RestServicewMongoDB.utility.MessageHandler;
 import group15.RestServicewMongoDB.utility.SessionHandler;
 import group15.RestServicewMongoDB.schemas.ChangePassword;
@@ -112,13 +113,17 @@ public class UserController {
     }
 
     @PostMapping("/view-credit-cards")
-    public Message viewCreditCards(HttpServletRequest request){
+    public ViewCreditCards viewCreditCards(HttpServletRequest request){
         User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
-        if (user == null) return MessageHandler.notSignedIn(); 
+        if (user == null) new ViewCreditCards(null, MessageHandler.notSignedIn()); 
 
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
-        int numberOfCards = userCreditCards.size();
-        Message response = MessageHandler.numberOfCardsAdded(numberOfCards);
+        int amountOfCards = userCreditCards.size();
+        if (amountOfCards == 0){
+            return new ViewCreditCards(userCreditCards, MessageHandler.noCreditCards());
+        }
+
+        ViewCreditCards response = new ViewCreditCards(userCreditCards, MessageHandler.numberOfCardsAdded(amountOfCards));
         response.setCreditCards(userCreditCards);
 
         return response;

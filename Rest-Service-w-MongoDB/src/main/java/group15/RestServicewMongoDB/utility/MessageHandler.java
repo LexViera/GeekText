@@ -95,4 +95,9 @@ public class MessageHandler {
         final String message = String.format("You have %s added.", numberOfCards);
         return new Message(message, SUCCESS);
     }   
+
+    public static Message noCreditCards(){
+        final String message = "There are no credit cards on file.";
+        return new Message(message, ERROR);
+    }
 }
