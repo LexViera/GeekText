@@ -16,6 +16,7 @@ import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.models.Session;
 import group15.RestServicewMongoDB.schemas.Message;
+import group15.RestServicewMongoDB.schemas.ViewCreditCards;
 import group15.RestServicewMongoDB.utility.MessageHandler;
 import group15.RestServicewMongoDB.utility.SessionHandler;
 import group15.RestServicewMongoDB.schemas.ChangePassword;
@@ -36,8 +37,7 @@ public class UserController {
         return (username == null || password == null) ? true : false;
     }
 
-    @PostMapping("/sign-up")
-    public Message signupUser(@RequestBody User userCredentials){
+    private Message signupUser(User userCredentials, boolean isAdmin){
         if (isMissingUserOrPassword(userCredentials.getUsername(), userCredentials.getPassword())){
             return MessageHandler.failedToProvideCredentials(); 
         } 
@@ -45,11 +45,29 @@ public class UserController {
         boolean isExistingUser = userCollection.existsById(username); 
         if (!isExistingUser){
             userCredentials.setCreditCards(new ArrayList<CreditCard>());
+            userCredentials.setIsAdmin(isAdmin);
             userCollection.save(userCredentials);
             return MessageHandler.createdAccount(); 
         }else{
             return MessageHandler.takenUser(); 
         }
+    }
+
+    @PostMapping("/sign-up")
+    public Message userSignup(@RequestBody User userCredentials){
+        return signupUser(userCredentials, false);
+    }
+
+    @PostMapping("/admin/sign-up")
+    public Message adminUserSignup(@RequestBody User userCredentials, HttpServletRequest request){
+        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
+        if (user == null) return MessageHandler.notSignedIn(); 
+
+        boolean isAdmin = user.isAdmin();
+        if (!isAdmin){
+            return MessageHandler.notAdmin();
+        }
+        return signupUser(userCredentials, isAdmin);
     }
 
     @PostMapping("/login")
@@ -112,14 +130,17 @@ public class UserController {
     }
 
     @PostMapping("/view-credit-cards")
-    public Message viewCreditCards(HttpServletRequest request){
+    public ViewCreditCards viewCreditCards(HttpServletRequest request){
         User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
-        if (user == null) return MessageHandler.notSignedIn(); 
+        if (user == null) new ViewCreditCards(null, MessageHandler.notSignedIn()); 
 
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
-        int numberOfCards = userCreditCards.size();
-        String message = String.format("You have %s added.", numberOfCards);
-        Message response = new Message(message, "Success");
+        int amountOfCards = userCreditCards.size();
+        if (amountOfCards == 0){
+            return new ViewCreditCards(userCreditCards, MessageHandler.noCreditCards());
+        }
+
+        ViewCreditCards response = new ViewCreditCards(userCreditCards, MessageHandler.numberOfCardsAdded(amountOfCards));
         response.setCreditCards(userCreditCards);
 
         return response;
