@@ -118,8 +118,7 @@ public class UserController {
 
         ArrayList<CreditCard> userCreditCards = user.getCreditCards();
         int numberOfCards = userCreditCards.size();
-        String message = String.format("You have %s added.", numberOfCards);
-        Message response = new Message(message, "Success");
+        Message response = MessageHandler.numberOfCardsAdded(numberOfCards);
         response.setCreditCards(userCreditCards);
 
         return response;

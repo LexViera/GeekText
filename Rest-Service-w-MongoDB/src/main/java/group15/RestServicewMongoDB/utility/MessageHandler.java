@@ -90,4 +90,9 @@ public class MessageHandler {
         final String incorrectOldPassword = "Incorrect old password provided.";
         return new Message(incorrectOldPassword, ERROR);
     }
+
+    public static Message numberOfCardsAdded(int numberOfCards){
+        final String message = String.format("You have %s added.", numberOfCards);
+        return new Message(message, SUCCESS);
+    }   
 }
