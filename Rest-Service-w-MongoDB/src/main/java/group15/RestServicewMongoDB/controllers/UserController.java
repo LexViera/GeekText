@@ -37,8 +37,7 @@ public class UserController {
         return (username == null || password == null) ? true : false;
     }
 
-    @PostMapping("/sign-up")
-    public Message signupUser(@RequestBody User userCredentials){
+    private Message signupUser(User userCredentials, boolean isAdmin){
         if (isMissingUserOrPassword(userCredentials.getUsername(), userCredentials.getPassword())){
             return MessageHandler.failedToProvideCredentials(); 
         } 
@@ -46,11 +45,29 @@ public class UserController {
         boolean isExistingUser = userCollection.existsById(username); 
         if (!isExistingUser){
             userCredentials.setCreditCards(new ArrayList<CreditCard>());
+            userCredentials.setIsAdmin(isAdmin);
             userCollection.save(userCredentials);
             return MessageHandler.createdAccount(); 
         }else{
             return MessageHandler.takenUser(); 
         }
+    }
+
+    @PostMapping("/sign-up")
+    public Message userSignup(@RequestBody User userCredentials){
+        return signupUser(userCredentials, false);
+    }
+
+    @PostMapping("/admin/sign-up")
+    public Message adminUserSignup(@RequestBody User userCredentials, HttpServletRequest request){
+        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
+        if (user == null) return MessageHandler.notSignedIn(); 
+
+        boolean isAdmin = user.isAdmin();
+        if (!isAdmin){
+            return MessageHandler.notAdmin();
+        }
+        return signupUser(userCredentials, isAdmin)
     }
 
     @PostMapping("/login")
