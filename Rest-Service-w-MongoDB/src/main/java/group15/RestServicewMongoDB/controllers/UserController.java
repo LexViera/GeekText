@@ -67,7 +67,7 @@ public class UserController {
         if (!isAdmin){
             return MessageHandler.notAdmin();
         }
-        return signupUser(userCredentials, isAdmin)
+        return signupUser(userCredentials, isAdmin);
     }
 
     @PostMapping("/login")
