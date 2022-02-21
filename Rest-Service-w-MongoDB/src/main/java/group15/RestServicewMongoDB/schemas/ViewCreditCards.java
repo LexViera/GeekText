@@ -18,4 +18,12 @@ public class ViewCreditCards {
     public ArrayList<CreditCard> getCreditCards(){
         return creditCards; 
     }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
+    }
 }
