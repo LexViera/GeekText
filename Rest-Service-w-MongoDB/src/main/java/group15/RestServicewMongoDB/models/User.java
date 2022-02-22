@@ -78,6 +78,14 @@ public class User {
         this.username = username;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
     public ArrayList<ShoppingCart> getCart() {
         return cart;
     }

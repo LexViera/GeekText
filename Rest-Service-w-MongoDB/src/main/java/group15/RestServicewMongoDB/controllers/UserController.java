@@ -1,12 +1,14 @@
 package group15.RestServicewMongoDB.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import group15.RestServicewMongoDB.schemas.Message;
 import group15.RestServicewMongoDB.schemas.ViewCreditCards;
 import group15.RestServicewMongoDB.utility.MessageHandler;
 import group15.RestServicewMongoDB.utility.SessionHandler;
+import group15.RestServicewMongoDB.schemas.ChangeCredential;
 import group15.RestServicewMongoDB.schemas.ChangePassword;
 import group15.RestServicewMongoDB.schemas.CreditCard;
 import group15.RestServicewMongoDB.schemas.Login;
@@ -161,5 +164,31 @@ public class UserController {
         userCollection.save(user);
         
         return MessageHandler.updatedUser("password");
+    }
+
+    @PostMapping("/change/{field}")
+    public ChangeCredential changeField(@RequestBody final ChangeCredential changeCredential, @PathVariable final String field, HttpServletRequest request){
+        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
+        if (user == null) return new ChangeCredential(field, MessageHandler.notSignedIn());   
+        
+        String credential = changeCredential.getCredential();
+        if (credential == null) return new ChangeCredential(field, MessageHandler.missingCredential(credential));   
+
+        switch (field) {
+            case "name":
+                user.setName(credential);
+                break;
+            case "address":
+                user.setHomeAddress(credential);
+                break;
+            default:
+                ChangeCredential credentialChange = new ChangeCredential(field, MessageHandler.invalidFieldProvided("/change/{field}"));
+                ArrayList<String> acceptedFields = new ArrayList<>(Arrays.asList("name", "address"));
+                credentialChange.setAcceptedFields(acceptedFields);
+                return credentialChange;
+        }
+
+        userCollection.save(user);
+        return new ChangeCredential(field, MessageHandler.updatedUser(field));
     }
 }

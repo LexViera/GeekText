@@ -100,4 +100,14 @@ public class MessageHandler {
         final String message = "There are no credit cards on file.";
         return new Message(message, ERROR);
     }
+    
+    public static Message missingCredential(String credential){
+        final String message = String.format("Missing '%s' credential.", credential);
+        return new Message(message, ERROR);
+    }
+
+    public static Message invalidFieldProvided(String fieldProvided){
+        final String message = String.format("Invalid field %s provided.", fieldProvided);
+        return new Message(message, ERROR);
+    } 
 }
