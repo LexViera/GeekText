@@ -105,4 +105,9 @@ public class MessageHandler {
         final String message = String.format("Missing '%s' credential.", credential);
         return new Message(message, ERROR);
     }
+
+    public static Message invalidFieldProvided(String fieldProvided){
+        final String message = String.format("Invalid field %s provided.");
+        return new Message(message, ERROR);
+    } 
 }

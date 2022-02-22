@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import group15.RestServicewMongoDB.schemas.ViewCreditCards;
 import group15.RestServicewMongoDB.utility.MessageHandler;
 import group15.RestServicewMongoDB.utility.SessionHandler;
 import group15.RestServicewMongoDB.schemas.ChangeAddress;
-import group15.RestServicewMongoDB.schemas.ChangeName;
+import group15.RestServicewMongoDB.schemas.ChangeCredential;
 import group15.RestServicewMongoDB.schemas.ChangePassword;
 import group15.RestServicewMongoDB.schemas.CreditCard;
 import group15.RestServicewMongoDB.schemas.Login;
@@ -165,31 +166,26 @@ public class UserController {
         return MessageHandler.updatedUser("password");
     }
 
-    @PostMapping("/change-name")
-    public Message changeName(@RequestBody final ChangeName changeNameCredentials, HttpServletRequest request){
+    @PostMapping("/change/{field}")
+    public Message changeField(@RequestBody final ChangeCredential changeCredential, @PathVariable final String field, HttpServletRequest request){
         User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
-        if (user == null) return MessageHandler.notSignedIn(); 
+        if (user == null) return MessageHandler.notSignedIn();
         
-        String name = changeNameCredentials.getName();
-        if (name == null) return MessageHandler.missingCredential("name");
+        String credential = changeCredential.getCredential();
+        if (credential == null) return MessageHandler.missingCredential("credential");
 
-        user.setName(name);
+        switch (field) {
+            case "name":
+                user.setName(credential);
+                break;
+            case "address":
+                user.setHomeAddress(credential);
+                break;
+            default:
+                return MessageHandler.invalidFieldProvided(field);
+        }
+
         userCollection.save(user);
-
-        return MessageHandler.updatedUser("name");
-    }
-
-    @PostMapping("/change-address")
-    public Message changeAddress(@RequestBody final ChangeAddress changeAddressCredentials, HttpServletRequest request){
-        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
-        if (user == null) return MessageHandler.notSignedIn(); 
-        
-        String address = changeAddressCredentials.getAddress();
-        if (address == null) return MessageHandler.missingCredential("address");
-
-        user.setHomeAddress(address);
-        userCollection.save(user);
-
-        return MessageHandler.updatedUser("name");
+        return MessageHandler.updatedUser(field);
     }
 }
