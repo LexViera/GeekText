@@ -100,4 +100,9 @@ public class MessageHandler {
         final String message = "There are no credit cards on file.";
         return new Message(message, ERROR);
     }
+    
+    public static Message missingNameCredential(){
+        final String message = "Missing name credential.";
+        return new Message(message, ERROR);
+    }
 }

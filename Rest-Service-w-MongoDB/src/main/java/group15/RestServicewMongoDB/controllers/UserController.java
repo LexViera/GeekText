@@ -19,6 +19,7 @@ import group15.RestServicewMongoDB.schemas.Message;
 import group15.RestServicewMongoDB.schemas.ViewCreditCards;
 import group15.RestServicewMongoDB.utility.MessageHandler;
 import group15.RestServicewMongoDB.utility.SessionHandler;
+import group15.RestServicewMongoDB.schemas.ChangeName;
 import group15.RestServicewMongoDB.schemas.ChangePassword;
 import group15.RestServicewMongoDB.schemas.CreditCard;
 import group15.RestServicewMongoDB.schemas.Login;
@@ -163,6 +164,17 @@ public class UserController {
         return MessageHandler.updatedUser("password");
     }
 
-    // @PostMapping("/change-name")
-    // public Message changeName()
+    @PostMapping("/change-name")
+    public Message changeName(@RequestBody final ChangeName changeNameCredentials, HttpServletRequest request){
+        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
+        if (user == null) return MessageHandler.notSignedIn(); 
+        
+        String name = changeNameCredentials.getName();
+        if (name == null) return MessageHandler.missingNameCredential();
+
+        user.setName(name);
+        userCollection.save(user);
+
+        return MessageHandler.updatedUser("name");
+    }
 }
