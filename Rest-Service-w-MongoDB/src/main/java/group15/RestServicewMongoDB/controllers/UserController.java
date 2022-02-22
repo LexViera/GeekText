@@ -162,4 +162,7 @@ public class UserController {
         
         return MessageHandler.updatedUser("password");
     }
+
+    // @PostMapping("/change-name")
+    // public Message changeName()
 }
