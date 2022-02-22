@@ -169,10 +169,10 @@ public class UserController {
     @PostMapping("/change/{field}")
     public ChangeCredential changeField(@RequestBody final ChangeCredential changeCredential, @PathVariable final String field, HttpServletRequest request){
         User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
-        if (user == null) return new ChangeCredential(null, MessageHandler.notSignedIn());   
+        if (user == null) return new ChangeCredential(field, MessageHandler.notSignedIn());   
         
         String credential = changeCredential.getCredential();
-        if (credential == null) return new ChangeCredential(null, MessageHandler.missingCredential(credential));   
+        if (credential == null) return new ChangeCredential(field, MessageHandler.missingCredential(credential));   
 
         switch (field) {
             case "name":
@@ -185,6 +185,7 @@ public class UserController {
                 ChangeCredential credentialChange = new ChangeCredential(field, MessageHandler.invalidFieldProvided("/change/{field}"));
                 ArrayList<String> acceptedFields = new ArrayList<>(Arrays.asList("name", "address"));
                 credentialChange.setAcceptedFields(acceptedFields);
+                return credentialChange;
         }
 
         userCollection.save(user);
