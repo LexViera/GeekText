@@ -21,7 +21,6 @@ import group15.RestServicewMongoDB.schemas.Message;
 import group15.RestServicewMongoDB.schemas.ViewCreditCards;
 import group15.RestServicewMongoDB.utility.MessageHandler;
 import group15.RestServicewMongoDB.utility.SessionHandler;
-import group15.RestServicewMongoDB.schemas.ChangeAddress;
 import group15.RestServicewMongoDB.schemas.ChangeCredential;
 import group15.RestServicewMongoDB.schemas.ChangePassword;
 import group15.RestServicewMongoDB.schemas.CreditCard;
