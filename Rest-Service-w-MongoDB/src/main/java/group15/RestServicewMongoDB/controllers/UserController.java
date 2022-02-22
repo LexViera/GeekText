@@ -1,6 +1,7 @@
 package group15.RestServicewMongoDB.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -167,12 +168,12 @@ public class UserController {
     }
 
     @PostMapping("/change/{field}")
-    public Message changeField(@RequestBody final ChangeCredential changeCredential, @PathVariable final String field, HttpServletRequest request){
+    public ChangeCredential changeField(@RequestBody final ChangeCredential changeCredential, @PathVariable final String field, HttpServletRequest request){
         User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
-        if (user == null) return MessageHandler.notSignedIn();
+        if (user == null) return new ChangeCredential(null, MessageHandler.notSignedIn());   
         
         String credential = changeCredential.getCredential();
-        if (credential == null) return MessageHandler.missingCredential("credential");
+        if (credential == null) return new ChangeCredential(null, MessageHandler.missingCredential(credential));   
 
         switch (field) {
             case "name":
@@ -182,10 +183,12 @@ public class UserController {
                 user.setHomeAddress(credential);
                 break;
             default:
-                return MessageHandler.invalidFieldProvided(field);
+                ChangeCredential credentialChange = new ChangeCredential(field, MessageHandler.invalidFieldProvided("/change/{field}"));
+                ArrayList<String> acceptedFields = new ArrayList<>(Arrays.asList("name", "address"));
+                credentialChange.setAcceptedFields(acceptedFields);
         }
 
         userCollection.save(user);
-        return MessageHandler.updatedUser(field);
+        return new ChangeCredential(field, MessageHandler.updatedUser(field));
     }
 }
