@@ -18,6 +18,18 @@ public class ChangeCredential {
         return credential;
     }
 
+    public Message getMessage() {
+        return message;
+    }
+
+    public ArrayList<String> getAcceptedFields() {
+        return acceptedFields;
+    }
+
+    public void setCredential(String credential) {
+        this.credential = credential;
+    }
+
     public void setMessage(Message message) {
         this.message = message;
     }

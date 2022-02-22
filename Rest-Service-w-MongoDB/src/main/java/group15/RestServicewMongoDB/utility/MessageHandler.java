@@ -107,7 +107,7 @@ public class MessageHandler {
     }
 
     public static Message invalidFieldProvided(String fieldProvided){
-        final String message = String.format("Invalid field %s provided.");
+        final String message = String.format("Invalid field %s provided.", fieldProvided);
         return new Message(message, ERROR);
     } 
 }
