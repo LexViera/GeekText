@@ -82,6 +82,10 @@ public class User {
         this.name = name;
     }
 
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
     public ArrayList<ShoppingCart> getCart() {
         return cart;
     }

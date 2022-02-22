@@ -101,8 +101,8 @@ public class MessageHandler {
         return new Message(message, ERROR);
     }
     
-    public static Message missingNameCredential(){
-        final String message = "Missing name credential.";
+    public static Message missingCredential(String credential){
+        final String message = String.format("Missing '%s' credential.", credential);
         return new Message(message, ERROR);
     }
 }

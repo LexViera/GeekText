@@ -19,6 +19,7 @@ import group15.RestServicewMongoDB.schemas.Message;
 import group15.RestServicewMongoDB.schemas.ViewCreditCards;
 import group15.RestServicewMongoDB.utility.MessageHandler;
 import group15.RestServicewMongoDB.utility.SessionHandler;
+import group15.RestServicewMongoDB.schemas.ChangeAddress;
 import group15.RestServicewMongoDB.schemas.ChangeName;
 import group15.RestServicewMongoDB.schemas.ChangePassword;
 import group15.RestServicewMongoDB.schemas.CreditCard;
@@ -170,9 +171,23 @@ public class UserController {
         if (user == null) return MessageHandler.notSignedIn(); 
         
         String name = changeNameCredentials.getName();
-        if (name == null) return MessageHandler.missingNameCredential();
+        if (name == null) return MessageHandler.missingCredential("name");
 
         user.setName(name);
+        userCollection.save(user);
+
+        return MessageHandler.updatedUser("name");
+    }
+
+    @PostMapping("/change-address")
+    public Message changeAddress(@RequestBody final ChangeAddress changeAddressCredentials, HttpServletRequest request){
+        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
+        if (user == null) return MessageHandler.notSignedIn(); 
+        
+        String address = changeAddressCredentials.getAddress();
+        if (address == null) return MessageHandler.missingCredential("address");
+
+        user.setHomeAddress(address);
         userCollection.save(user);
 
         return MessageHandler.updatedUser("name");
