@@ -207,6 +207,6 @@ public class UserController {
             User fetchedUser = userCollection.findById(username).orElseGet(User::new);
             if (fetchedUser.getUsername() == null) fetchedUser.setUsername("No such user found.");
             return fetchedUser;
-        } else return user; 
+        } else return null;
     }
 }
