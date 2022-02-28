@@ -199,4 +199,14 @@ public class UserController {
         if (user != null) user.setPassword("-");
         return user; 
     }
+
+    @GetMapping("/admin/{username}/user-info")
+    public User adminUserInfo(HttpServletRequest request, @PathVariable final String username){
+        User user = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
+        if (user != null && user.isAdmin()){
+            User fetchedUser = userCollection.findById(username).orElseGet(User::new);
+            if (fetchedUser.getUsername() == null) fetchedUser.setUsername("No such user found.");
+            return fetchedUser;
+        } else return user; 
+    }
 }
