@@ -42,14 +42,9 @@ public class BookController {
     private int countr = 0;
     @GetMapping("/test")
     public Message print(HttpServletRequest request){
-        Message response = AccessHandler.enableUserAccess(request, sessionCollection, userCollection);
-        //Success Message
-        if(response == null) {
-            //To-do
-            return MessageHandler.customSuccessMesssage("Hello World - Request Counter:"+ ++countr);
-        }
-        //Error Message
-        return response;
+                   
+        return MessageHandler.customSuccessMesssage("Hello World - Request Counter:"+ ++countr);
+        
     }
 
     //Accepts a POST call to populate the Book collection with an array of books
