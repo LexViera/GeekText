@@ -46,7 +46,7 @@ public class BookController {
         return MessageHandler.customSuccessMesssage("Hello World - Request Counter:"+ ++countr);
     }
     @GetMapping("/test2")
-    public Object test2(HttpServletRequest request){          
+    public Object test2(){          
         return MessageHandler.customSuccessMesssage("Hello World");
     }
 
