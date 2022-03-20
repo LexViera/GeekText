@@ -41,10 +41,13 @@ public class BookController {
     //TESTING Server Response and Features
     private int countr = 0;
     @GetMapping("/test")
-    public Message print(HttpServletRequest request){
+    public Message test1(HttpServletRequest request){
                    
         return MessageHandler.customSuccessMesssage("Hello World - Request Counter:"+ ++countr);
-        
+    }
+    @GetMapping("/test2")
+    public Object test2(HttpServletRequest request){          
+        return MessageHandler.customSuccessMesssage("Hello World");
     }
 
     //Accepts a POST call to populate the Book collection with an array of books
