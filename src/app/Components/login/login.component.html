@@ -1,0 +1,20 @@
+<body>
+    <div id="main-holder">
+      <div class="column" id="left">
+        <h1 id="login-header">Login</h1>
+      
+        <div id="login-error-msg-holder">
+          <p id="login-error-msg">{{response.message}}</p>
+        </div>
+      </div>
+        
+      <div class="column" id="right">
+        <form id="login-form">
+            <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username" [(ngModel)]="loginDetails.username">
+            <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password"[(ngModel)]="loginDetails.password">
+            <input type="submit" value="Login" class="login-form-button" (click)=sendLogin()>
+          </form>
+      </div>
+    
+    </div>
+</body>
