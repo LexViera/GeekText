@@ -35,7 +35,7 @@ public class AuthorController {
     @PostMapping("/authors/add-author")
     public Message addAuthors(@RequestBody List<Author> authors, HttpServletRequest request, HttpServletResponse httpResponse){
 
-        Message response = AccessHandler.enableUserAccess(request);
+        Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
             //Success Message
             if(response == null) {
                 //To-do

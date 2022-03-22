@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import group15.RestServicewMongoDB.collections.BookRepo;
+import group15.RestServicewMongoDB.collections.SessionRepo;
+import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.Author;
 import group15.RestServicewMongoDB.models.Book;
 import group15.RestServicewMongoDB.schemas.Message;
@@ -27,6 +29,10 @@ public class BookController {
 
     @Autowired
     private BookRepo bookCollection;
+    @Autowired
+    private SessionRepo sessionCollection;
+    @Autowired
+    private UserRepo userCollection;
 
     //TESTING Server Response and Features
     @CrossOrigin(origins = "http://localhost:4200")
@@ -38,7 +44,7 @@ public class BookController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/test2")
     public Object test2(HttpServletRequest request){
-        Message response = AccessHandler.enableUserAccess(request);
+        Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
         //Success Message
         if(response == null) {
             //To-do
@@ -51,7 +57,7 @@ public class BookController {
     //Accepts a POST call to populate the Book collection with an array of books
     @PostMapping("/books/add-book")
     public Message addBooks(@RequestBody List<Book> books, HttpServletRequest request){
-        Message response = AccessHandler.enableAdminAccess(request);
+        Message response = AccessHandler.enableAdminAccess(request,sessionCollection,userCollection);
         //Success Message
         if(response == null) {
             //To-do
@@ -65,7 +71,7 @@ public class BookController {
     //Finds all books in the collection
     @GetMapping("/books")
     public List<Book> getBooks(HttpServletRequest request,HttpServletResponse httpResponse) throws IOException{
-        Message response = AccessHandler.enableUserAccess(request);
+        Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
         //Success Message
         if(response == null) {
             //To-do
@@ -81,7 +87,7 @@ public class BookController {
     public Book findBook(@PathVariable final String bookId, HttpServletRequest request,HttpServletResponse httpResponse)
             throws IOException {
 
-        Message response = AccessHandler.enableUserAccess(request);
+        Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
         // Success Message
         if (response == null) {
             // To-do
@@ -97,7 +103,7 @@ public class BookController {
     public List<Book> findBooksByAuthor(@PathVariable Author author, HttpServletRequest request,HttpServletResponse httpResponse)
     throws IOException {
 
-        Message response = AccessHandler.enableUserAccess(request);
+        Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
         // Success Message
         if (response == null) {
             // To-do
@@ -114,7 +120,7 @@ public class BookController {
     public List<Book> findBooksByGenre(@PathVariable String genre, HttpServletRequest request,HttpServletResponse httpResponse)
     throws IOException {
 
-        Message response = AccessHandler.enableUserAccess(request);
+        Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
         // Success Message
         if (response == null) {
             // To-do
@@ -130,7 +136,7 @@ public class BookController {
     @GetMapping("/books/top-sellers")
     public List<Book> findBooksByTopSeller(HttpServletRequest request, HttpServletResponse httpResponse)
             throws IOException {
-        Message response = AccessHandler.enableUserAccess(request);
+        Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
         // Success Message
         if (response == null) {
             // To-do
@@ -162,7 +168,7 @@ public class BookController {
     public List<Book> getBookSubset(@PathVariable int index, HttpServletRequest request,
             HttpServletResponse httpResponse)
             throws IOException {
-        Message response = AccessHandler.enableUserAccess(request);
+        Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
         // Success Message
         if (response == null) {
             // To-do
