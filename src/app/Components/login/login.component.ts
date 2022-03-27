@@ -11,29 +11,37 @@ import { DataService } from 'src/app/Services/data-service';
 export class LoginComponent implements OnInit {
 
   response;
+  private cookie = {};
 
-  @Input() loginDetails:Login;
+  @Input() loginDetails: Login;
 
   @Output() loginEvent: EventEmitter<Login>;
 
-  constructor(private dataService:DataService) {
+  constructor(private dataService: DataService) {
     this.loginDetails = {} as Login;
     this.loginEvent = new EventEmitter<Login>();
     this.response = {} as Message;
     this.response.message = "Please enter your log in details";
-   }
-  
-  ngOnInit(): void {
-
   }
 
-  sendLogin(){
+  ngOnInit(): void {}
+
+  sendLogin() {
     console.log(this.loginDetails);
-    this.dataService.postRequest("https://geek-text-g15.herokuapp.com/login",this.loginDetails)
-    .subscribe(response => {
-      this.response = response;
-      console.log(response);
-    });
+    this.dataService.postRequest("https://geek-text-g15.herokuapp.com/login", this.loginDetails)
+      .subscribe(response => {
+        this.response = response;
+        console.log(response);
+        console.log(response.headers);
+      });
   }
+
+  // testLoginStatus() {
+  //   this.dataService.getRequest("https://geek-text-g15.herokuapp.com/test2").subscribe(
+  //     response => {
+  //       console.log(response);
+  //     }
+  //   );
+  // }
 
 }

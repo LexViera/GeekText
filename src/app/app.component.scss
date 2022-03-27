@@ -1,13 +1,25 @@
-h1{
-    display:block;
-    width:1000px;
-    word-wrap: break-word;
-font-size: xx-large;
-color:tomato;
+:root{
+    --clr-black: #0b090a;
+    --clr-gray-dark: #161a1d;
+    --clr-gray-light1: #d3d3d3;
+    --clr-gray-light2: #f5f3f4;
+    --clr-gray-light3: #f8f9fa;
+    --clr-red: #ba181b;
+    --clr-gray-transparent: rgb(0,0,0,0.1);
+    --title-font:Poppins;
+    --text-font:Monserrat;
 }
- button{
-     background-color: rgb(86, 67, 196);
- }
-#test{
-    background-color: red;
+
+html{
+    position:relative;
+}
+
+app-header{
+    position:absolute;
+    width:100%;
+    z-index: 9999;
+}
+router-outlet{
+    position:absolute;
+    z-index:0;
 }
