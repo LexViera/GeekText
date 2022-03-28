@@ -32,9 +32,4 @@ public class ShoppingCart {
     public List<Book> getCart() {
         return cart;
     }
-
-    
-
-
-    
 }
