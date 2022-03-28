@@ -5,20 +5,20 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BookComponent } from './components/book/book.component';
 import { LoginComponent } from './Components/login/login.component';
 import { ErrorComponent } from './Components/error/error.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { HeaderComponent } from './Components/header/header.component';
+import { HomeComponent } from './Components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookComponent,
     LoginComponent,
     ErrorComponent,
     RegisterComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
   
   imports: [
