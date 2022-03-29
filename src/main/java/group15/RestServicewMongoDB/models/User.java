@@ -17,7 +17,7 @@ public class User {
     private String homeAddress;
     private Boolean isAdmin = false;
     private ArrayList<CreditCard> creditCards; 
-    private ArrayList<ShoppingCart> cart;
+    private ShoppingCart cart;
     //private ArrayList<Wishlist> wishlist;
 
     public User(){}
@@ -30,7 +30,7 @@ public class User {
         this.homeAddress = homeAddress;
         this.isAdmin = (isAdmin) ? true : false;
         this.creditCards = new ArrayList<CreditCard>();
-        this.cart = new ArrayList<>();
+        this.cart = new ShoppingCart();
         //this.wishlist = new ArrayList<>();
     }
   
@@ -86,11 +86,11 @@ public class User {
         this.homeAddress = homeAddress;
     }
 
-    public ArrayList<ShoppingCart> getCart() {
+    public ShoppingCart getCart() {
         return cart;
     }
 
-    public void setCart(ArrayList<ShoppingCart> cart) {
+    public void setCart(ShoppingCart cart) {
         this.cart = cart;
     }
 }
