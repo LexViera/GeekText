@@ -1,36 +1,29 @@
 package group15.RestServicewMongoDB.controllers;
-
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import group15.RestServicewMongoDB.models.Book;
-import group15.RestServicewMongoDB.models.ShoppingCart;
+import group15.RestServicewMongoDB.models.User;
 
 @RestController
 public class CartController {
 
     @GetMapping("/cart")
-    public List<Book> showCart(ShoppingCart cart)
+    public List<Book> showCart(User user)
     {
-        return cart.getCart();
+        return user.getCart().getCartContent();
     }
     
     @PostMapping("/add-to-cart")
-    public void addToCart(Book book, ShoppingCart cart)
+    public void addToCart(Book book, User user)
     {
-        cart.addBook(book);
+        user.getCart().addBook(book);
     }
 
     @PostMapping("/remove-from-cart")
-    public void removeFromCart(Book book, ShoppingCart cart)
+    public void removeFromCart(Book book, User user)
     {
-        cart.removeBook(book);
-    }
-
-
-
-
-
-    
+        user.getCart().removeBook(book);
+    } 
 }

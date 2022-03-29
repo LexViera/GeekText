@@ -29,12 +29,8 @@ public class ShoppingCart {
     }
 
     //show cart
-    public List<Book> getCart() {
+    public List<Book> getCartContent() 
+    {
         return cart;
     }
-
-    
-
-
-    
 }
