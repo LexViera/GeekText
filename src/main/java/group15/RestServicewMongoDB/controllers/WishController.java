@@ -1,3 +1,4 @@
+package group15.RestServicewMongoDB.controllers;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
