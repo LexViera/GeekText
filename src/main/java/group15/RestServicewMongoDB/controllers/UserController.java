@@ -74,7 +74,7 @@ public class UserController {
         }
         return signupUser(userCredentials, isAdmin);
     }
-    @CrossOrigin(origins = "https://geek-text-front.herokuapp.com/")
+    @CrossOrigin(origins = "https://geek-text-front.herokuapp.com")
     @PostMapping("/login")
     public Message loginUser(@RequestBody Login loginCredentials, HttpServletResponse response){  
         final String givenUsername, givenPassword;
@@ -99,7 +99,7 @@ public class UserController {
         response.addHeader(
             "Set-Cookie", cookie.getName()+"="+cookie.getValue()+"; HttpOnly; SameSite=None; Secure=true");
         response.addHeader("Access-Control-Allow-Credentials","true"); 
-        response.addHeader("Access-Control-Allow-Origin", "https://geek-text-front.herokuapp.com/");
+        //response.addHeader("Access-Control-Allow-Origin", "https://geek-text-front.herokuapp.com");
         return MessageHandler.successfullySignedIn(); 
     }
 
