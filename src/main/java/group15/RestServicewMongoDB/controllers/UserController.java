@@ -97,7 +97,10 @@ public class UserController {
         Cookie cookie = new Cookie(SessionHandler.sessionIdentifierKey, newSession.getSessionIdentifier());
         cookie.setMaxAge(86400);
         cookie.setSecure(false);
-        response.addCookie(cookie);
+        cookie.setHttpOnly(true);
+        
+        //response.addCookie(cookie);
+        response.addHeader("Set-Cookie", "key="+cookie.getValue()+"; HttpOnly; SameSite=strict");
         return MessageHandler.successfullySignedIn(); 
     }
 
