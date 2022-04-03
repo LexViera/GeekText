@@ -6,8 +6,10 @@ app-header{
     position:absolute;
     width:100%;
     z-index: 9999;
+    
 }
 router-outlet{
     position:absolute;
     z-index:0;
+    
 }

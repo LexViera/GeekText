@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Login } from 'src/app/Interfaces/login';
 import { Message } from 'src/app/Interfaces/message';
@@ -11,7 +12,8 @@ import { DataService } from 'src/app/Services/data-service';
 export class LoginComponent implements OnInit {
 
   response;
-  private cookie = {};
+  
+  private cookie:any = {};
 
   @Input() loginDetails: Login;
 
@@ -27,21 +29,20 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   sendLogin() {
-    console.log(this.loginDetails);
-    this.dataService.postRequest("https://geek-text-g15.herokuapp.com/login", this.loginDetails)
+    let options = {
+      observe: 'response',
+      headers:{
+        "withcredentials":true,
+        "SameSite":"None"
+      }, 
+    };
+    
+    this.dataService.postRequest("https://geek-text-g15.herokuapp.com/login", this.loginDetails, options)
       .subscribe(response => {
-        this.response = response;
+        this.response = response.body;
+        //console.log(response);
         console.log(response);
-        console.log(response.headers);
+        console.log(response.headers)
       });
   }
-
-  // testLoginStatus() {
-  //   this.dataService.getRequest("https://geek-text-g15.herokuapp.com/test2").subscribe(
-  //     response => {
-  //       console.log(response);
-  //     }
-  //   );
-  // }
-
 }
