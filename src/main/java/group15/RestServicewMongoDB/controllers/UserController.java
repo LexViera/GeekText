@@ -95,13 +95,9 @@ public class UserController {
         Session newSession = new Session(givenUsername);
         sessionCollection.save(newSession);
         Cookie cookie = new Cookie(SessionHandler.sessionIdentifierKey, newSession.getSessionIdentifier());
-        cookie.setMaxAge(86400);
-        cookie.setSecure(false);
-        cookie.setHttpOnly(true);
-        
         //response.addCookie(cookie);
         response.addHeader(
-            "Set-Cookie", cookie.getName()+"="+cookie.getValue()+"; HttpOnly; SameSite=None; Secure=false; Access-Control-Allow-Credentials:true; Access-Control-Allow-Origin: http://localhost:4200");
+            "Set-Cookie", cookie.getName()+"="+cookie.getValue()+"; HttpOnly; SameSite=None; Secure=true; Access-Control-Allow-Credentials:true; Access-Control-Allow-Origin: *");
         return MessageHandler.successfullySignedIn(); 
     }
 
