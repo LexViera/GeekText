@@ -74,7 +74,7 @@ public class UserController {
         }
         return signupUser(userCredentials, isAdmin);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://geek-text-front.herokuapp.com/")
     @PostMapping("/login")
     public Message loginUser(@RequestBody Login loginCredentials, HttpServletResponse response){  
         final String givenUsername, givenPassword;
