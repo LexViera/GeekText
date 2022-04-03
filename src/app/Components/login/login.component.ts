@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
     let options = {
       observe: 'response',
       headers:{
-        "withcredentials":true,
-        "SameSite":"None"
+        "withCredentials":true
       }, 
     };
     
