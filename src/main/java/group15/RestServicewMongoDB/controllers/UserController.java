@@ -95,6 +95,8 @@ public class UserController {
         Session newSession = new Session(givenUsername);
         sessionCollection.save(newSession);
         Cookie cookie = new Cookie(SessionHandler.sessionIdentifierKey, newSession.getSessionIdentifier());
+        cookie.setMaxAge(86400);
+        cookie.setSecure(false);
         response.addCookie(cookie);
         return MessageHandler.successfullySignedIn(); 
     }
