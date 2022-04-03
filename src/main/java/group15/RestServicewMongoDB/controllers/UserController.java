@@ -100,7 +100,7 @@ public class UserController {
         cookie.setHttpOnly(true);
         
         //response.addCookie(cookie);
-        response.addHeader("Set-Cookie", "key="+cookie.getValue()+"; HttpOnly; SameSite=none");
+        response.addHeader("Set-Cookie", "key="+cookie.getValue()+"; HttpOnly; SameSite=None; Secure");
         return MessageHandler.successfullySignedIn(); 
     }
 
