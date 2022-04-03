@@ -101,7 +101,7 @@ public class UserController {
         
         //response.addCookie(cookie);
         response.addHeader(
-            "Set-Cookie", cookie.getName()+"="+cookie.getValue()+"; HttpOnly; SameSite=None; Secure;Access-Control-Allow-Credentials: true;Access-Control-Allow-Origin: http://localhost:");
+            "Set-Cookie", cookie.getName()+"="+cookie.getValue()+"; HttpOnly; SameSite=None; Secure=false; Access-Control-Allow-Credentials:true; Access-Control-Allow-Origin: http://localhost:4200");
         return MessageHandler.successfullySignedIn(); 
     }
 
