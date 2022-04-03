@@ -100,7 +100,14 @@ public class UserController {
         cookie.setHttpOnly(true);
         
         //response.addCookie(cookie);
-        response.addHeader("Set-Cookie", "key="+cookie.getValue()+"; HttpOnly; SameSite=None; Secure");
+        response.addHeader(
+            "Set-Cookie", 
+            "key="+cookie.getValue()+"; 
+            HttpOnly; 
+            SameSite=None; 
+            Secure;
+            Access-Control-Allow-Credentials: true;
+            Access-Control-Allow-Origin: http://localhost:4200");
         return MessageHandler.successfullySignedIn(); 
     }
 
