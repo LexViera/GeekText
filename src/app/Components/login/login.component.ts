@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     let options = {
       observe: 'response',
       headers:{
-        "withCredentials":true
+        withCredentials:true
       }, 
     };
     
@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
         this.response = response.body;
         //console.log(response);
         console.log(response);
-        console.log(response.headers)
       });
   }
 }
