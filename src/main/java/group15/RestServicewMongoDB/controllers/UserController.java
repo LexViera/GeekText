@@ -98,6 +98,8 @@ public class UserController {
         //response.addCookie(cookie);
         response.addHeader("Set-Cookie", cookie.getName()+"="+cookie.getValue()+";Secure;HttpOnly;SameSite=None;Path=/;");
         response.addHeader("Access-Control-Allow-Credentials","true"); 
+        response.addHeader("Access-Control-Allow-Headers","content-type");
+        //response.addHeader("Access-Control-Allow-Methods","GET,POST,OPTIONS");
         return MessageHandler.successfullySignedIn(); 
     }
 
