@@ -96,9 +96,8 @@ public class UserController {
         sessionCollection.save(newSession);
         Cookie cookie = new Cookie(SessionHandler.sessionIdentifierKey, newSession.getSessionIdentifier());
         //response.addCookie(cookie);
-        response.addHeader("Set-Cookie", cookie.getName()+"="+cookie.getValue()+";Secure; HttpOnly; SameSite=None; Path=/; Max-Age=250;");
+        response.addHeader("Set-Cookie", cookie.getName()+"="+cookie.getValue()+";Secure;HttpOnly;SameSite=None;Path=/;");
         response.addHeader("Access-Control-Allow-Credentials","true"); 
-        //response.addHeader("Access-Control-Allow-Origin", "https://geek-text-front.herokuapp.com");
         return MessageHandler.successfullySignedIn(); 
     }
 
