@@ -40,6 +40,12 @@ public class BookController {
     public Message test1(){
         return MessageHandler.customSuccessMesssage("Hello World");
     }
+    @CrossOrigin(origins = "https://localhost:4200", allowCredentials = "true")
+    @GetMapping("/")
+    public Message home(){
+        return MessageHandler.customSuccessMesssage("Home")
+    }
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/test2")
