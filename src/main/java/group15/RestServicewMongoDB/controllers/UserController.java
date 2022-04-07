@@ -74,7 +74,7 @@ public class UserController {
         }
         return signupUser(userCredentials, isAdmin);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
     @PostMapping("/login")
     public Message loginUser(@RequestBody Login loginCredentials, HttpServletResponse response){  
         final String givenUsername, givenPassword;
@@ -96,6 +96,7 @@ public class UserController {
         sessionCollection.save(newSession);
         Cookie cookie = new Cookie(SessionHandler.sessionIdentifierKey, newSession.getSessionIdentifier());
         //response.addCookie(cookie);
+        
         response.addHeader("Set-Cookie", cookie.getName()+"="+cookie.getValue()+"; Secure; HttpOnly; SameSite=None; Path=/; Max-Age=86400;");
         response.addHeader("Access-Control-Allow-Credentials","true"); 
         response.addHeader("Access-Control-Allow-Headers","Content-Type");
