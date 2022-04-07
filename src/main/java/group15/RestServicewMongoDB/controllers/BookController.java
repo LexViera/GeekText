@@ -35,7 +35,7 @@ public class BookController {
     private UserRepo userCollection;
 
     //TESTING Server Response and Features
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/test")
     public Message test1(){
         return MessageHandler.customSuccessMesssage("Hello World");
@@ -47,7 +47,7 @@ public class BookController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/test2")
     public Object test2(HttpServletRequest request){
         Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
@@ -61,7 +61,7 @@ public class BookController {
     }
 
     //Accepts a POST call to populate the Book collection with an array of books
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping("/books/add-book")
     public Message addBooks(@RequestBody List<Book> books, HttpServletRequest request){
         Message response = AccessHandler.enableAdminAccess(request,sessionCollection,userCollection);
@@ -76,7 +76,7 @@ public class BookController {
     }
 
     //Finds all books in the collection
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/books")
     public List<Book> getBooks(HttpServletRequest request,HttpServletResponse httpResponse) throws IOException{
         Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
@@ -91,7 +91,7 @@ public class BookController {
     }
     
     // Find book by ISBN
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/books/id={bookId}")
     public Book findBook(@PathVariable final String bookId, HttpServletRequest request,HttpServletResponse httpResponse)
             throws IOException {
@@ -108,7 +108,7 @@ public class BookController {
     }
 
     // Find books by author
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/books/author={author}")
     public List<Book> findBooksByAuthor(@PathVariable Author author, HttpServletRequest request,HttpServletResponse httpResponse)
     throws IOException {
@@ -126,7 +126,7 @@ public class BookController {
     }
 
     // Find books by genre
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/books/genre={genre}")
     public List<Book> findBooksByGenre(@PathVariable String genre, HttpServletRequest request,HttpServletResponse httpResponse)
     throws IOException {
@@ -144,7 +144,7 @@ public class BookController {
     }
 
     // Find books by Top Sellers(Top 10)
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/books/top-sellers")
     public List<Book> findBooksByTopSeller(HttpServletRequest request, HttpServletResponse httpResponse)
             throws IOException {
@@ -176,7 +176,7 @@ public class BookController {
     }
 
     // Find Book subset of size X from index 0 to X
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/books/get-subset={index}")
     public List<Book> getBookSubset(@PathVariable int index, HttpServletRequest request,
             HttpServletResponse httpResponse)
