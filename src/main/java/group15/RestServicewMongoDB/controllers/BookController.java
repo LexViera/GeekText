@@ -43,7 +43,7 @@ public class BookController {
     @CrossOrigin(origins = "https://localhost:4200", allowCredentials = "true")
     @GetMapping("/")
     public Message home(){
-        return MessageHandler.customSuccessMesssage("Home")
+        return MessageHandler.customSuccessMesssage("Home");
     }
 
 
