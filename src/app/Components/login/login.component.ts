@@ -31,9 +31,7 @@ export class LoginComponent implements OnInit {
   sendLogin() {
     let options = {
       observe: 'response',
-      headers:{
-        withCredentials:true
-      }, 
+      withCredentials:true
     };
     
     this.dataService.postRequest("https://geek-text-g15.herokuapp.com/login", this.loginDetails, options)

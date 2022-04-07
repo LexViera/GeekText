@@ -12,12 +12,13 @@ export class DataService {
 
   constructor(private http:HttpClient) { }
 
-  getRequest(url: string):Observable<any>{
-    return this.http.get(url)
+  getRequest(url: string, option?:any):Observable<any>{
+    return this.http.get(url,option)
     .pipe(
       catchError(this.handleError)
     );
   }
+  
 
   postRequest(url:string,body:Object, option?:any): Observable<any>{
     return this.http.post(url,body,option)
