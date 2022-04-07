@@ -19,7 +19,7 @@ public class WishController {
     @Autowired
     private UserRepo userCollection;
 
-    @GetMapping("/cart")
+    @GetMapping("/wish")
     public List<Book> showWish(HttpServletRequest request)
     {
         return SessionHandler.fetchRequestUser(request, sessionCollection, userCollection).getWish().getWishContent();
