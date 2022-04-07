@@ -18,7 +18,7 @@ public class User {
     private Boolean isAdmin = false;
     private ArrayList<CreditCard> creditCards; 
     private ShoppingCart cart;
-    private ArrayList<WishList> wish;
+    private WishList wish;
 
     public User(){}
 
@@ -31,7 +31,7 @@ public class User {
         this.isAdmin = (isAdmin) ? true : false;
         this.creditCards = new ArrayList<CreditCard>();
         this.cart = new ShoppingCart();
-        this.wish= new ArrayList<>();
+        this.wish = new WishList();
     }
   
     public String getUsername(){
@@ -94,11 +94,11 @@ public class User {
         this.cart = cart;
         
     }
-    public ArrayList<WishList> getWish() {
+    public WishList getWish() {
         return wish;
     }
 
-    public void setwish(ArrayList<WishList> wish) {
+    public void setWish(WishList wish) {
         this.wish = wish;
     }  
 }

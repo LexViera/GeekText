@@ -1,30 +1,40 @@
 package group15.RestServicewMongoDB.controllers;
-
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import group15.RestServicewMongoDB.collections.SessionRepo;
+import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.Book;
-import group15.RestServicewMongoDB.models.WishList;
+import group15.RestServicewMongoDB.utility.SessionHandler;
+
 
 @RestController
 public class WishController {
 
-    @GetMapping("/wish")
-    public List<Book> showWish(WishList wish)
+    @Autowired
+    private SessionRepo sessionCollection;
+    @Autowired
+    private UserRepo userCollection;
+
+    @GetMapping("/cart")
+    public List<Book> showWish(HttpServletRequest request)
     {
-        return wish.getWish();
+        return SessionHandler.fetchRequestUser(request, sessionCollection, userCollection).getWish().getWishContent();
     }
     
-    @PostMapping("/add-to-Wish")
-    public void addToWish(Book book, WishList wish)
+    @PostMapping("/add-to-wishlist")
+    public void addToWish(Book book, HttpServletRequest request)
     {
-        wish.addBook(book);
+        SessionHandler.fetchRequestUser(request, sessionCollection, userCollection).getWish().addBook(book);
+    } 
+
+    @PostMapping("/remove-from-wishlist")
+    public void removeFromWish(Book book, HttpServletRequest request)
+    {
+        SessionHandler.fetchRequestUser(request, sessionCollection, userCollection).getWish().removeBook(book);    
     }
 
-    @PostMapping("/remove-from-wish")
-    public void removeFromWish(Book book, WishList wish)
-    {
-        wish.removeBook(book);
-    }
 }

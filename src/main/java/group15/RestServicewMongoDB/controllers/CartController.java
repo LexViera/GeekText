@@ -18,7 +18,7 @@ public class CartController {
     @Autowired
     private UserRepo userCollection;
     
-    @GetMapping("/cart")
+   @GetMapping("/cart")
     public List<Book> showCart(HttpServletRequest request)
     {
         return SessionHandler.fetchRequestUser(request, sessionCollection, userCollection).getCart().getCartContent();
@@ -28,7 +28,7 @@ public class CartController {
     public void addToCart(Book book, HttpServletRequest request)
     {
         SessionHandler.fetchRequestUser(request, sessionCollection, userCollection).getCart().addBook(book);
-    }
+    } 
 
     @PostMapping("/remove-from-cart")
     public void removeFromCart(Book book, HttpServletRequest request)
