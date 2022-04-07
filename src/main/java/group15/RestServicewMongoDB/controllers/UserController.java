@@ -74,7 +74,7 @@ public class UserController {
         }
         return signupUser(userCredentials, isAdmin);
     }
-    @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+    @CrossOrigin(origins = "https://localhost:4200", allowCredentials = "true")
     @PostMapping("/login")
     public Message loginUser(@RequestBody Login loginCredentials, HttpServletResponse response){  
         final String givenUsername, givenPassword;
