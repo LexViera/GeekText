@@ -47,7 +47,7 @@ public class BookController {
     }
 
 
-    @CrossOrigin(origins = "https://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200", allowCredentials = "true")
     @GetMapping("/test2")
     public Object test2(HttpServletRequest request){
         Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
