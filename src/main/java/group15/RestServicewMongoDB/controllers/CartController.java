@@ -1,17 +1,13 @@
 package group15.RestServicewMongoDB.controllers;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import group15.RestServicewMongoDB.collections.SessionRepo;
 import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.Book;
-import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.utility.SessionHandler;
 
 @RestController
@@ -29,14 +25,14 @@ public class CartController {
     }
     
     @PostMapping("/add-to-cart")
-    public void addToCart(Book book, User user)
+    public void addToCart(Book book, HttpServletRequest request)
     {
-        user.getCart().addBook(book);
+        SessionHandler.fetchRequestUser(request, sessionCollection, userCollection).getCart().addBook(book);
     }
 
     @PostMapping("/remove-from-cart")
-    public void removeFromCart(Book book, User user)
+    public void removeFromCart(Book book, HttpServletRequest request)
     {
-        user.getCart().removeBook(book);
+        SessionHandler.fetchRequestUser(request, sessionCollection, userCollection).getCart().removeBook(book);
     } 
 }
