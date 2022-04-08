@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  homepage = "https://localhost:4200";
+
   constructor() { }
 
   ngOnInit(): void {

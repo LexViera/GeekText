@@ -15,7 +15,6 @@ export class AppComponent {
   keys:number = this.title.length;;
   newDate = new Date();
 
-
   constructor(private dataService:DataService){
     
   }

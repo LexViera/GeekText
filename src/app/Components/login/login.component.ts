@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.loginDetails = {} as Login;
     this.loginEvent = new EventEmitter<Login>();
     this.response = {} as Message;
-    this.response.message = "Please enter your log in details";
+    this.response.message = "Enter your login details";
   }
 
   ngOnInit(): void {}
@@ -37,8 +37,14 @@ export class LoginComponent implements OnInit {
     this.dataService.postRequest("https://geek-text-g15.herokuapp.com/login", this.loginDetails, options)
       .subscribe(response => {
         this.response = response.body;
+
         //console.log(response);
-        console.log(response);
+        console.log(response.body);
       });
+
+    this.dataService.getRequest("https://geek-text-g15.herokuapp.com/test2", options)
+    .subscribe(response=>{
+      console.log(response.body)
+    })
   }
 }

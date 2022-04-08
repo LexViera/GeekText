@@ -1,13 +1,9 @@
 
 body{
-    background-image:radial-gradient(var(--clr-black),var(--clr-red));
-    height:100vh;
-    width:100%;
     display:flex;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
-    padding:0;
 }
 
 #main-holder{
@@ -17,37 +13,38 @@ body{
     justify-content: center;
     background-color: var(--clr-red);
     border-radius: 2px;
-    padding: 3%;
-    width:40%;
+    padding:3%;
+    min-width: 50%;
     min-height:30vh;
 }
 
 .column{
     display:flex;
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
     width:50%;
 }
-.column#right{
-    margin-left: 1em;
-}
 
-.column#left{
-    color:#f8f9fa;
-}
 h1#login-header{
-    font-size: 4em;
-    font-weight: 800;
+    font-size: 3em;
+    text-transform: uppercase;
     margin:0;
+    letter-spacing: .25em;
 }
 
 #login-form{
     display:flex;
     flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#login-form-registration-link{
+    margin-top: 1em;
+}
+#login-error-msg{
+    max-width: 80%;
 }
 .login-form-field{
-    width: 80%;
+    width: 100%;
     padding-top: 15px;
     padding-bottom:15px;
     padding-left: 15px;
@@ -55,31 +52,31 @@ h1#login-header{
     align-self: center;
     background-color: transparent;
     border: 1px #f8f9fa solid;
-    color:#f8f9fa;
+    color:var(--clr-gray-lt3);
 }
 .login-form-field::placeholder{
-    color:#f8f9fa;
+    font-family: var(--text-font);
+    color:var(--clr-gray-lt3);
 }
 .login-form-field:focus-visible{
-    outline:#f8f9fa 1px solid;
+    outline:var(--clr-gray-lt3) 1px solid;
 }
 
 .login-form-button{
-    align-self: center;
-    width:70%;
+    width:100%;
     margin-top: 10px;
     padding:20px;
-    font-size: 1.5em;
     font-weight: 800;
+    letter-spacing: .75em;
     background-color: transparent;
     border: 1px #f8f9fa solid;
     color:#f8f9fa;
-    transition: .4s ease-in-out;
+    transition: .4s ease;
     cursor:pointer;
-    position: relative;
+    text-transform: uppercase
 }
 .login-form-button:hover{
-    transform:scale(1.05);
-    background-color: rgb(255,255,255,0.3)
+    background-color: rgb(255,255,255,0.3);
+    border-color: transparent;   
 }
 

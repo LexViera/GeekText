@@ -1,16 +1,11 @@
-html{
-    font-size:12px;
-    
-}
-
-
 .header{
     width:100%;
     display:flex;
     justify-content:space-between;
     padding:1em;
     background-color: var(--clr-gray-dark);
-    box-shadow: 0px 2px 10px rgb(0,0,0,0.1);
+    box-shadow: 0px 2px 30px rgb(252,29,3,0.1);
+    animation: 1s slideFromTop ease-out;
 }
 
 .menu{
@@ -20,15 +15,15 @@ html{
 }
 
 .menu-item{
-    padding:.75em;
     margin-left: 1em;
-    margin-right:1em;
-    border:1px var(--clr-red) solid;
-    background-color: transparent;
-    color:var(--clr-gray-lt3);
-    text-decoration: none;
+    margin-right: 1em;
 }
-.menu-item:hover{
-    background-color: var(--clr-red-trans);
-    color:white;
-}
+
+@keyframes slideFromTop {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }

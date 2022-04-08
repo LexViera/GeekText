@@ -12,6 +12,7 @@
         <form id="login-form">
             <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username" [(ngModel)]="loginDetails.username">
             <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password"[(ngModel)]="loginDetails.password">
+            <p id="login-form-registration-link"> Don't have an account?  <a href="/register">Register</a></p>
             <input type="submit" value="Login" class="login-form-button" (click)=sendLogin()>
           </form>
       </div>

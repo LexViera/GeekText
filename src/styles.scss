@@ -7,18 +7,81 @@
     --clr-red:rgb(252,29,3);
     --clr-red-trans:rgb(252,29,3,0.3);
     --clr-gray-trans: rgb(0,0,0,0.1);
+    --header-font:'Cinzel', serif;
+    --text-font:'Prata', serif;
+    
 }
 
 *,
 *::after,
 *::before{
     box-sizing: border-box;
+    margin:0;
+    padding:0;
 }
+
 
 html{
     overflow: hidden;   
     background-color: var(--clr-gray-dark);
 }
 body{
-    margin:0; 
- }
+    // background-color: var(--clr-gray-dark);
+    background:linear-gradient(var(--clr-red), var(--clr-gray-dark));
+    height:100vh;
+    width:100%;
+    display:block;
+    animation: .5s ease-in SlideIn;
+}
+
+a{
+     text-decoration: underline;
+     color:var(--clr-gray-lt3)
+}
+
+h1,h2,h3,h4,h5,h6{
+     font-family: var(--header-font);
+     color:var(--clr-gray-lt3);
+}
+p,input[type="submit"]{
+     font-family: var(--text-font);
+     color:var(--clr-gray-lt3);
+     font-size: small;
+}
+
+
+input[type="text"],input[type="password"]{
+    font-family: var(--text-font);   
+}
+
+button{
+    font-family: var(--text-font);
+    padding:.75em;
+    border:1px var(--clr-red) solid;
+    background-color: transparent;
+    color:var(--clr-gray-lt3);
+    background-color: transparent;
+    border: 1px #f8f9fa solid;
+    color:#f8f9fa;
+    transition: .4s ease;
+    cursor:pointer;
+    text-transform: uppercase
+}
+button:hover{
+    background-color: rgb(255,255,255,0.3);
+    border-color: transparent;   
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////A N I M A T I O N  K E Y F R A M E S/////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+@keyframes SlideIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
