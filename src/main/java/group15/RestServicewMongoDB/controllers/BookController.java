@@ -38,20 +38,7 @@ public class BookController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/test")
     public Message test1(){
-        return MessageHandler.customSuccessMesssage("Hello World");
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/test2")
-    public Object test2(HttpServletRequest request){
-        Message response = AccessHandler.enableUserAccess(request,sessionCollection,userCollection);
-        //Success Message
-        if(response == null) {
-            //To-do
-            return MessageHandler.customSuccessMesssage("Hello World , Logged in");
-        }
-        //Error Message
-        return response;
+        return MessageHandler.customSuccessMesssage("GeekText is Online");
     }
 
     //Accepts a POST call to populate the Book collection with an array of books
