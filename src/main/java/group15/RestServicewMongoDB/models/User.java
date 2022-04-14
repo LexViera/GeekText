@@ -5,12 +5,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import group15.RestServicewMongoDB.schemas.CreditCard;
 import java.util.ArrayList;
+import java.util.List;
 
 @Document
 public class User {
     @Id
     private String username;
-
     private String password;
     private String name;
     private String emailAddress;
@@ -18,9 +18,13 @@ public class User {
     private Boolean isAdmin = false;
     private ArrayList<CreditCard> creditCards; 
     private ShoppingCart cart;
-    private ArrayList<WishList> wish;
+    private WishList wish;
 
-    public User(){}
+    public User(){
+        this.creditCards = new ArrayList<CreditCard>();
+        this.cart = new ShoppingCart();
+        this.wish = new WishList();
+    }
 
     public User(String username, String password, String name, String emailAddress, String homeAddress, Boolean isAdmin){
         this.username = username;
@@ -31,7 +35,7 @@ public class User {
         this.isAdmin = (isAdmin) ? true : false;
         this.creditCards = new ArrayList<CreditCard>();
         this.cart = new ShoppingCart();
-        this.wish= new ArrayList<>();
+        this.wish = new WishList();
     }
   
     public String getUsername(){
@@ -90,15 +94,11 @@ public class User {
         return cart;
     }
 
-    public void setCart(ShoppingCart cart) {
-        this.cart = cart;
-        
-    }
-    public ArrayList<WishList> getWish() {
+    public WishList getWish() {
         return wish;
     }
 
-    public void setwish(ArrayList<WishList> wish) {
+    public void setWish(WishList wish) {
         this.wish = wish;
     }  
 }

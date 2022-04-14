@@ -82,5 +82,6 @@ public class Book {
     public void setCopiesSold (String copiesSold) {
         this.copiesSold = copiesSold;
     }
+
 }
  

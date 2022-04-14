@@ -27,7 +27,7 @@ private List<Book>wish = new LinkedList<>();
      }
  }
 
-public List<Book> getWish() {
+public List<Book> getWishContent() {
     return wish;//#endregion() {
  }
 }

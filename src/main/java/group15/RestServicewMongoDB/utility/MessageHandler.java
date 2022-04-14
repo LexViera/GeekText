@@ -26,6 +26,11 @@ public class MessageHandler {
         return new Message(addedBooks, SUCCESS);
     }
 
+    public static Message missingBook(){
+        final String addedBooks = "Book doesn't exist";
+        return new Message(addedBooks, ERROR);
+    }
+
     public static Message notAdmin(){
         final String notAdmin = "Unauthorized";
         return new Message(notAdmin, ERROR);
