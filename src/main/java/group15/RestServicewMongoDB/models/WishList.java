@@ -5,9 +5,14 @@ public class WishList {
     
 
 private List<Book>wish = new LinkedList<>();
+private String name;
 
  //empty constructor
- public WishList(){}
+    public WishList(){}
+
+ public WishList(String name){
+     this.name = name;
+ }
 
  //add book to wishlist
  public void addBook(Book book)
@@ -22,7 +27,7 @@ private List<Book>wish = new LinkedList<>();
      {
          if (book.getIsbn().equals(x.getIsbn()))
          {
-             wish.remove(book);
+             wish.remove(x);
          }
      }
  }
@@ -30,4 +35,26 @@ private List<Book>wish = new LinkedList<>();
 public List<Book> getWishContent() {
     return wish;//#endregion() {
  }
+
+ public boolean isInWishList(Book book){
+
+    for(Book x:wish)
+    {
+        if (book.getIsbn().equals(x.getIsbn()))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+public String getName() {
+    return name;
+}
+
+public void setName(String name) {
+    this.name = name;
+}
+
+ 
 }
