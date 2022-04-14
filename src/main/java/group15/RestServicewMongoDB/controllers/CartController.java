@@ -12,7 +12,6 @@ import group15.RestServicewMongoDB.collections.BookRepo;
 import group15.RestServicewMongoDB.collections.SessionRepo;
 import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.Book;
-import group15.RestServicewMongoDB.models.ShoppingCart;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.schemas.Message;
 import group15.RestServicewMongoDB.utility.MessageHandler;

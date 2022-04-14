@@ -26,8 +26,8 @@ public class WishController {
     private SessionRepo sessionCollection;
     @Autowired
     private UserRepo userCollection;
-    // @Autowired
-    // private BookRepo bookCollection;
+    @Autowired
+    private BookRepo bookCollection;
 
     @GetMapping("/wishlist={name}")
     public List<Book> showWish(@PathVariable String name, HttpServletRequest request)
@@ -61,37 +61,37 @@ public class WishController {
         return MessageHandler.customSuccessMesssage("Wishlist Created Successfully");
     } 
     
-    // @PostMapping("/add-to-wishlist={bookId}={name}")
-    // public Message addToWish(@PathVariable String bookId,@PathVariable String name, HttpServletRequest request){
-    //     User activeUser = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
-    //     Book book = bookCollection.findById(bookId).orElseGet(Book::new);
+    @PostMapping("/add-to-wishlist={bookId}={name}")
+    public Message addToWish(@PathVariable String bookId,@PathVariable String name, HttpServletRequest request){
+        User activeUser = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
+        Book book = bookCollection.findById(bookId).orElseGet(Book::new);
 
-    //     if(activeUser.getCart().isInCart(book)){
-    //         activeUser.getCart().removeBook(book);
-    //         for(WishList x: activeUser.getWish()){
-    //             if(x.getName()==name){
-    //                 x.addBook(book);
-    //                 userCollection.save(activeUser);
-    //                 return MessageHandler.addedBooks();
-    //             }
-    //         }
-    //     }
-    //     return MessageHandler.customErrorMesssage("Invalid BookID or Wishlist name");
-    // } 
+        if(activeUser.getCart().isInCart(book)){
+            activeUser.getCart().removeBook(book);
+            for(WishList x: activeUser.getWish()){
+                if(x.getName()==name){
+                    x.addBook(book);
+                    userCollection.save(activeUser);
+                    return MessageHandler.addedBooks();
+                }
+            }
+        }
+        return MessageHandler.customErrorMesssage("Invalid BookID or Wishlist name");
+    } 
 
-    // @PostMapping("/remove-from-wishlist={bookId}={name}")
-    // public Message removeFromWish(@PathVariable String bookId,@PathVariable String name, HttpServletRequest request){
-    //     User activeUser = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
-    //     Book book = bookCollection.findById(bookId).orElseGet(Book::new);
+    @PostMapping("/remove-from-wishlist={bookId}={name}")
+    public Message removeFromWish(@PathVariable String bookId,@PathVariable String name, HttpServletRequest request){
+        User activeUser = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
+        Book book = bookCollection.findById(bookId).orElseGet(Book::new);
 
-    //     for(WishList x: activeUser.getWish()){
-    //         if(x.getName()==name){
-    //             x.removeBook(book);
-    //             userCollection.save(activeUser);
-    //             return MessageHandler.customSuccessMesssage("Book Removed");
-    //         }
-    //     }
-    //     return MessageHandler.customErrorMesssage("Invalid BookID or Wishlist name");
-    // }
+        for(WishList x: activeUser.getWish()){
+            if(x.getName()==name){
+                x.removeBook(book);
+                userCollection.save(activeUser);
+                return MessageHandler.customSuccessMesssage("Book Removed");
+            }
+        }
+        return MessageHandler.customErrorMesssage("Invalid BookID or Wishlist name");
+    }
 
 }
