@@ -95,8 +95,8 @@ public class UserController {
         Session newSession = new Session(givenUsername);
         sessionCollection.save(newSession);
         Cookie cookie = new Cookie(SessionHandler.sessionIdentifierKey, newSession.getSessionIdentifier());
-        response.addCookie(cookie);
-        //response.addHeader("Set-Cookie", cookie.getName()+"="+cookie.getValue()+"; Secure; HttpOnly; SameSite=None; Path=/; Max-Age=86400;");
+        //response.addCookie(cookie);
+        response.addHeader("Set-Cookie", cookie.getName()+"="+cookie.getValue()+"; Secure; HttpOnly; SameSite=None; Path=/; Max-Age=86400;");
         // response.addHeader("Access-Control-Allow-Credentials","true"); 
         // response.addHeader("Access-Control-Allow-Headers","Content-Type");
         // response.addHeader("Access-Control-Allow-Methods","GET,POST,OPTIONS");

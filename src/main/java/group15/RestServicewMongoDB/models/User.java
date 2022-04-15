@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 @Document
 public class User {
+
     @Id
     private String username;
     private String password;
