@@ -1,6 +1,5 @@
 package group15.RestServicewMongoDB.models;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ShoppingCart {

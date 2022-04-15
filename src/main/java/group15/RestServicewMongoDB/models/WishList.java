@@ -1,33 +1,60 @@
 package group15.RestServicewMongoDB.models;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 public class WishList {
     
 
-private List<Book>wish = new LinkedList<>();
+    private List<Book>wish = new ArrayList<>();
+    private String name;
 
- //empty constructor
- public WishList(){}
+    //empty constructor
+    public WishList(){}
 
- //add book to wishlist
- public void addBook(Book book)
- {
-     wish.add(book);
- }
+    public WishList(String name){
+        this.name = name;
+    }
 
- //remove from wishlist
- public void removeBook(Book book)
- {
-     for(Book x:wish)
-     {
-         if (book.getIsbn().equals(x.getIsbn()))
-         {
-             wish.remove(book);
-         }
-     }
- }
+    //add book to wishlist
+    public void addBook(Book book)
+    {
+        wish.add(book);
+    }
 
-public List<Book> getWishContent() {
-    return wish;//#endregion() {
- }
+    //remove from wishlist
+    public void removeBook(Book book)
+    {
+        for(Book x:wish)
+        {
+            if (book.getIsbn().equals(x.getIsbn()))
+            {
+                wish.remove(x);
+            }
+        }
+    }
+
+    public List<Book> getWishContent() {
+        return wish;//#endregion() {
+    }
+
+    public boolean isInWishList(Book book){
+
+        for(Book x:wish)
+        {
+            if (book.getIsbn().equals(x.getIsbn()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+ 
 }

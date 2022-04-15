@@ -1,6 +1,5 @@
 package group15.RestServicewMongoDB.controllers;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import group15.RestServicewMongoDB.collections.BookRepo;
 import group15.RestServicewMongoDB.collections.SessionRepo;
 import group15.RestServicewMongoDB.collections.UserRepo;
 import group15.RestServicewMongoDB.models.Book;
-import group15.RestServicewMongoDB.models.ShoppingCart;
 import group15.RestServicewMongoDB.models.User;
 import group15.RestServicewMongoDB.schemas.Message;
 import group15.RestServicewMongoDB.utility.MessageHandler;
