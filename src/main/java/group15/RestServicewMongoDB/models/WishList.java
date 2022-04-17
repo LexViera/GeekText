@@ -17,7 +17,7 @@ public class WishList {
     //add book to wishlist
     public void addBook(Book book)
     {
-        wish.add(book);
+        this.wish.add(book);
     }
 
     //remove from wishlist
@@ -27,7 +27,7 @@ public class WishList {
         {
             if (book.getIsbn().equals(x.getIsbn()))
             {
-                wish.remove(x);
+                this.wish.remove(x);
             }
         }
     }
