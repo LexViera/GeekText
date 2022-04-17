@@ -66,11 +66,11 @@ public class WishController {
         User activeUser = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
         Book book = bookCollection.findById(bookId).orElseGet(Book::new);
         for(WishList x: activeUser.getWish()){
-            if(x.getName()==name){
+//            if(x.getName()==name){
                 x.addBook(book);
                 userCollection.save(activeUser);
-                return MessageHandler.addedBooks();
-            }
+            //    return MessageHandler.addedBooks();
+          //  }
         }
 
        return MessageHandler.customErrorMesssage("Invalid BookID or Wishlist name");
