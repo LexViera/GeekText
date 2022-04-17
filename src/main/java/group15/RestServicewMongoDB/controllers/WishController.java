@@ -65,18 +65,15 @@ public class WishController {
     public Message addToWish(@PathVariable String bookId,@PathVariable String name, HttpServletRequest request){
         User activeUser = SessionHandler.fetchRequestUser(request, sessionCollection, userCollection);
         Book book = bookCollection.findById(bookId).orElseGet(Book::new);
-
-        if(activeUser.getCart().isInCart(book)){
-            activeUser.getCart().removeBook(book);
-            for(WishList x: activeUser.getWish()){
-                if(x.getName()==name){
-                    x.addBook(book);
-                    userCollection.save(activeUser);
-                    return MessageHandler.addedBooks();
-                }
+        for(WishList x: activeUser.getWish()){
+            if(x.getName()==name){
+                x.addBook(book);
+                userCollection.save(activeUser);
+                return MessageHandler.addedBooks();
             }
         }
-        return MessageHandler.customErrorMesssage("Invalid BookID or Wishlist name");
+
+       return MessageHandler.customErrorMesssage("Invalid BookID or Wishlist name");
     } 
 
     @PostMapping("/remove-from-wishlist={bookId}={name}")
